@@ -41,11 +41,11 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto px-7">
               {lines.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
-                  <p className="font-display text-2xl text-ink/80" style={{ fontWeight: 330 }}>
+                  <p className="font-display text-2xl text-ink/80" style={{ fontWeight: 500 }}>
                     Your bag is empty.
                   </p>
                   <p className="mt-3 max-w-[28ch] text-[0.9rem] text-ink/55">
-                    Begin with The Mat, and the ritual will follow.
+                    Begin with The Cards, and the practice will follow.
                   </p>
                 </div>
               ) : (
@@ -116,7 +116,7 @@ export function CartDrawer() {
                   </span>
                 </div>
                 <p className="mt-1.5 text-[0.74rem] text-ink/45">
-                  Shipping and rose-scented tissue calculated at checkout.
+                  Shipping and hand-wrapped packaging calculated at checkout.
                 </p>
                 <button className="mt-5 w-full rounded-full bg-ink py-4 text-[0.78rem] uppercase tracking-[0.16em] text-canvas transition-colors hover:bg-clay">
                   Proceed to checkout

@@ -3,16 +3,17 @@
 Durable context for this project. Keep current. See HANDOFF.md for live state.
 
 ## Purpose
-Omorra is an early-stage, limited-SKU DTC wellness brand: rose water-infused
-yoga objects (a mat, a mist, a wrap, a cork block). This repo is the marketing
-landing page: a single, premium, quiet-luxury page. Front-end only for now,
-no live commerce.
+Omorra is an early-stage DTC brand: an Indian wisdom house that brings India's
+wisdom traditions (Gita, Upanishads, Ayurvedic dinacharya) into daily life
+through small daily objects, on three pillars: Wisdom, Practice, Nourish.
+Products: The Cards (Wisdom), The Mala (Practice), The Oil (Nourish). This repo
+is the marketing site (home, /our-story, /products/[slug]). Front-end only, no
+live commerce. (History: started as a rose-water yoga brand; rebranded in v3.)
 
 ## The design thesis
-"Rose water as the design system." The product is soft, dewy, botanical,
-calming. The interface mirrors that: warm bone canvas, blush + dusty-rose
-tones, high-contrast editorial serif, generous negative space, slow calm
-motion. Reference register: Aesop, Loewe, Aloe, Cereal/Kinfolk editorial.
+Indian in its roots, entirely modern in its form. Warm earthen palette, a
+literary high-contrast serif (wisdom-tradition voice), generous negative space,
+calm motion. Reference register: Aesop, Frama, Aman Essentials, Loewe Home.
 
 ## Stack
 - Next.js 15 (App Router) + React 19 + TypeScript
@@ -28,10 +29,14 @@ motion. Reference register: Aesop, Loewe, Aloe, Cereal/Kinfolk editorial.
 - `components/CartProvider.tsx` / `CartDrawer.tsx` — visual-only cart
 - `public/images/` — generated brand imagery (see below)
 
-## Brand palette (tokens)
-canvas `#f5f0e8`, canvas-deep `#efe7da`, ink `#26221e`, ink-soft `#5c544c`,
-petal `#e7c9c2`, petal-light `#f3e2dd`, rose `#c98a82`, clay `#5e4039`,
-sage `#6b7363`.
+## Brand palette (tokens, app/globals.css @theme)
+canvas `#faf5ec` (Ivory cream), canvas-deep `#f1e7d3`, silk `#dcceb8`,
+ink `#3d2418` (Espresso), walnut `#8c7567` (Stone walnut, soft text),
+sienna `#c68c5f` (Burnt sienna), pecan `#b85a2c` (Pecan, strong accent/CTA),
+sage `#8fa083` (Dried sage), rosette `#c08576`. Pillar hues: Wisdom=sienna,
+Practice=sage, Nourish=rosette. Back-compat aliases: clay->pecan, rose->rosette,
+ink-soft->walnut, petal/petal-light->warm tints. Fonts: Cormorant (display) +
+Hanken Grotesk (body); Cormorant is light, so display weights run ~500.
 
 ## Imagery (how it was made)
 All imagery is AI-generated via the Masonry CLI using `gpt-image-2`.

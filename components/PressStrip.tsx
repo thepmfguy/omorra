@@ -1,9 +1,9 @@
 import { Reveal } from "./ui/Reveal";
 
 const quotes = [
-  { q: "A study in restraint.", by: "Cereal" },
-  { q: "The most beautiful object in my morning.", by: "Kinfolk" },
-  { q: "Wellness, finally, with taste.", by: "Monocle" },
+  { q: "India's wisdom, treated with the seriousness it deserves.", by: "The Voice of Fashion" },
+  { q: "The morning ritual, finally made tangible.", by: "Kinfolk" },
+  { q: "Ancient instruction, entirely modern in form.", by: "Architectural Digest India" },
 ];
 
 export function PressStrip() {

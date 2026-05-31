@@ -1,17 +1,31 @@
-import Image from "next/image";
-
 const cols = [
   {
-    title: "The House",
-    links: ["The Collection", "The Ritual", "Provenance", "Our Materials"],
+    title: "The Collection",
+    links: [
+      { label: "Wisdom", href: "/#wisdom" },
+      { label: "Practice", href: "/#practice" },
+      { label: "Nourish", href: "/#nourish" },
+      { label: "Ritual Kit", href: "/#ritual-kit" },
+      { label: "Our Story", href: "/our-story" },
+    ],
   },
   {
     title: "Care",
-    links: ["Shipping", "Returns", "Mat Care", "Contact"],
+    links: [
+      { label: "Shipping", href: "#" },
+      { label: "Returns", href: "#" },
+      { label: "Contact", href: "#" },
+      { label: "FAQ", href: "#" },
+    ],
   },
   {
     title: "Connect",
-    links: ["Instagram", "Journal", "Stockists", "The List"],
+    links: [
+      { label: "Instagram", href: "#" },
+      { label: "The Journal", href: "#" },
+      { label: "Stockists", href: "#" },
+      { label: "The List", href: "/#newsletter" },
+    ],
   },
 ];
 
@@ -22,40 +36,32 @@ export function Footer() {
         <div className="grid gap-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3">
-              <Image
-                src="/images/logo-monogram.png"
-                alt="Omorra monogram"
-                width={44}
-                height={44}
-                className="mix-blend-multiply"
-              />
-              <span
-                className="font-display text-2xl tracking-[0.3em] text-ink"
-                style={{ fontWeight: 400 }}
-              >
-                OMORRA
-              </span>
-            </div>
-            <p className="mt-6 max-w-[34ch] text-[0.9rem] leading-relaxed text-ink/55">
-              Rose water-infused objects for a slower practice. Made in small,
-              numbered releases.
+            <span
+              className="font-display text-3xl tracking-[0.3em] text-ink"
+              style={{ fontWeight: 500 }}
+            >
+              OMORRA
+            </span>
+            <p className="mt-6 max-w-[34ch] text-[0.9rem] leading-relaxed text-walnut">
+              India&rsquo;s wisdom traditions, brought into the texture of
+              ordinary days. Wisdom, Practice, Nourish. Made in small, numbered
+              releases.
             </p>
           </div>
 
           {cols.map((col) => (
             <div key={col.title}>
-              <h4 className="text-[0.66rem] uppercase tracking-[0.18em] text-ink/45">
+              <h4 className="text-[0.66rem] uppercase tracking-[0.18em] text-walnut">
                 {col.title}
               </h4>
               <ul className="mt-5 space-y-3">
                 {col.links.map((l) => (
-                  <li key={l}>
+                  <li key={l.label}>
                     <a
-                      href="#"
+                      href={l.href}
                       className="text-[0.9rem] text-ink/70 transition-colors hover:text-ink"
                     >
-                      {l}
+                      {l.label}
                     </a>
                   </li>
                 ))}

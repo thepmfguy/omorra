@@ -33,18 +33,18 @@ export function Hero() {
             transition={{ duration: 1, ease }}
             className="mb-8 flex items-center gap-4"
           >
-            <span className="h-px w-10 bg-ink/30" />
-            <span className="eyebrow">A limited first release</span>
+            <span className="h-px w-10 bg-sienna" />
+            <span className="eyebrow">Wisdom · Practice · Nourish</span>
           </motion.div>
 
           <h1
-            className="font-display text-[2.9rem] leading-[1.04] text-ink sm:text-[3.6rem] md:text-[4rem] lg:text-[4.6rem]"
-            style={{ fontWeight: 320 }}
+            className="font-display text-[3.1rem] leading-[1.0] text-ink sm:text-[4rem] md:text-[4.4rem] lg:text-[5.2rem]"
+            style={{ fontWeight: 500 }}
           >
-            <Line delay={0.1}>Rose water,</Line>
-            <Line delay={0.2}>for the</Line>
+            <Line delay={0.1}>Wisdom,</Line>
+            <Line delay={0.2}>made a</Line>
             <Line delay={0.3}>
-              <span className="italic text-clay">unhurried</span> practice.
+              <span className="italic text-pecan">daily</span> practice.
             </Line>
           </h1>
 
@@ -52,11 +52,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6, ease }}
-            className="mt-9 max-w-[40ch] text-[1.02rem] leading-relaxed text-ink/70"
+            className="mt-9 max-w-[44ch] text-[1.04rem] leading-relaxed text-walnut"
           >
-            Omorra is a small house of rose water-infused objects, made to slow
-            the body and scent the room. The infusion is held in the material
-            itself, not sprayed on the surface. A quieter way to begin.
+            Most of us inherit India&rsquo;s wisdom traditions without ever living
+            them. Omorra closes that gap with the small, daily objects through
+            which a practice actually enters a life: a verse to read, a practice
+            to do, an oil for the skin.
           </motion.p>
 
           <motion.div
@@ -66,21 +67,21 @@ export function Hero() {
             className="mt-11 flex items-center gap-8"
           >
             <Link
-              href="#collection"
+              href="#pillars"
               className="group inline-flex items-center gap-3 text-[0.8rem] uppercase tracking-[0.18em] text-ink"
             >
               <span className="relative after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-100 after:bg-ink after:transition-transform after:duration-500 group-hover:after:scale-x-0">
-                Explore the collection
+                The three pillars
               </span>
               <span className="transition-transform duration-500 group-hover:translate-x-1.5">
                 →
               </span>
             </Link>
             <Link
-              href="/products/the-mat"
-              className="text-[0.8rem] uppercase tracking-[0.18em] text-ink/55 transition-colors hover:text-ink"
+              href="/our-story"
+              className="text-[0.8rem] uppercase tracking-[0.18em] text-walnut transition-colors hover:text-ink"
             >
-              The Mat
+              Our story
             </Link>
           </motion.div>
         </div>
@@ -93,7 +94,7 @@ export function Hero() {
             transition={{ duration: 1.2, delay: 0.35, ease }}
             className="relative md:ml-auto md:max-w-[520px]"
           >
-            <div className="relative aspect-[4/5] overflow-hidden bg-petal-light">
+            <div className="relative aspect-[4/5] overflow-hidden bg-silk">
               <motion.div
                 initial={{ scale: 1.12 }}
                 animate={{ scale: 1 }}
@@ -102,7 +103,7 @@ export function Hero() {
               >
                 <Image
                   src="/images/hero-still.png"
-                  alt="The Omorra Mat, rolled and bound with an embossed leather strap"
+                  alt="An Omorra morning ritual: a wisdom card, a ceramic cup and an Ayurvedic oil"
                   fill
                   priority
                   sizes="(max-width: 768px) 100vw, 520px"
@@ -110,12 +111,12 @@ export function Hero() {
                 />
               </motion.div>
               <span className="absolute right-4 top-4 text-[0.62rem] uppercase tracking-[0.2em] text-canvas/90 mix-blend-difference">
-                No. 01
+                The morning ritual
               </span>
             </div>
-            <figcaption className="mt-4 flex items-center justify-between text-[0.72rem] uppercase tracking-[0.14em] text-ink/50">
-              <span>Damask rose · the first release</span>
-              <span>The Mat</span>
+            <figcaption className="mt-4 flex items-center justify-between text-[0.72rem] uppercase tracking-[0.14em] text-walnut">
+              <span>Read · do · nourish</span>
+              <span>Begin today</span>
             </figcaption>
           </motion.figure>
         </div>
@@ -130,15 +131,15 @@ export function Hero() {
       >
         <ul className="mx-auto grid max-w-[1400px] grid-cols-1 divide-y divide-ink/10 px-6 sm:grid-cols-3 sm:divide-x sm:divide-y-0 md:px-10">
           {[
-            ["Infused, not sprayed", "Scent held in the material"],
-            ["Numbered release", "Made in small batches"],
-            ["Single origin", "Triple-distilled Damask rose"],
+            ["Rooted in the source", "The Gita & the Upanishads"],
+            ["Daily rhythm", "Dinacharya, from the Charaka Samhita"],
+            ["Indian in root", "Entirely modern in form"],
           ].map(([title, sub]) => (
             <li key={title} className="flex flex-col gap-1 py-5 sm:px-8 sm:first:pl-0">
               <span className="text-[0.78rem] uppercase tracking-[0.14em] text-ink">
                 {title}
               </span>
-              <span className="text-[0.82rem] text-ink/55">{sub}</span>
+              <span className="text-[0.82rem] text-walnut">{sub}</span>
             </li>
           ))}
         </ul>

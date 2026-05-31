@@ -1,36 +1,26 @@
-import Image from "next/image";
 import { Reveal } from "./ui/Reveal";
 
 export function Philosophy() {
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-40">
-      <div className="grid items-center gap-14 md:grid-cols-2 md:gap-24">
+    <section className="border-y border-ink/10 bg-canvas-deep">
+      <div className="mx-auto max-w-[900px] px-6 py-28 text-center md:py-40">
         <Reveal>
-          <p className="eyebrow mb-8">Our thinking</p>
+          <p className="eyebrow mb-8">Why Omorra</p>
           <h2
-            className="font-display text-[2rem] leading-[1.12] text-ink sm:text-[2.6rem] md:text-[3rem]"
-            style={{ fontWeight: 330 }}
+            className="font-display text-[2.1rem] leading-[1.18] text-ink sm:text-[2.7rem] md:text-[3.2rem]"
+            style={{ fontWeight: 500 }}
           >
-            We believe a practice should be felt before it is performed.
+            The modern Indian morning is not short of ambition.
+            <span className="text-pecan"> It is short of pause.</span>
           </h2>
-          <p className="mt-8 max-w-[48ch] text-[1rem] leading-relaxed text-ink/70">
-            Rose water has been drawn from the Damask rose for a thousand years,
-            valued for the way it settles the breath. We build it into the
-            objects you return to each morning, so the scent becomes the signal,
-            and the signal becomes the calm.
+          <p className="mx-auto mt-9 max-w-[58ch] text-[1.05rem] leading-[1.8] text-walnut">
+            Between the phone at 7 and the first meeting at 10, between the
+            commute and the inbox, there is almost no structured moment in which
+            a person sits with themselves. The Gita has a word for that moment.
+            The Upanishads have a method for it. Ayurveda has a practice for it.
+            These are not ancient secrets. They are instructions we stopped
+            following.
           </p>
-        </Reveal>
-
-        <Reveal delay={0.12}>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] bg-petal-light md:aspect-[3/4]">
-            <Image
-              src="/images/philosophy.png"
-              alt="Rose petals suspended in clear water"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
         </Reveal>
       </div>
     </section>

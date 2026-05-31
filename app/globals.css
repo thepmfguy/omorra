@@ -1,16 +1,26 @@
 @import "tailwindcss";
 
-/* ---- Omorra design tokens ---- */
+/* ---- Omorra design tokens (Indian wisdom palette) ---- */
 @theme {
-  --color-canvas: #f5f0e8;
-  --color-canvas-deep: #efe7da;
-  --color-ink: #26221e;
-  --color-ink-soft: #5c544c;
-  --color-petal: #e7c9c2;
-  --color-petal-light: #f3e2dd;
-  --color-rose: #c98a82;
-  --color-clay: #5e4039;
-  --color-sage: #6b7363;
+  /* Foundation */
+  --color-canvas: #faf5ec;        /* Ivory cream */
+  --color-canvas-deep: #f1e7d3;   /* soft deeper ivory for bands */
+  --color-silk: #dcceb8;          /* Silk scarf */
+  --color-ink: #3d2418;           /* Espresso ink */
+  --color-walnut: #8c7567;        /* Stone walnut (soft text) */
+
+  /* Accents */
+  --color-sienna: #c68c5f;        /* Burnt sienna */
+  --color-pecan: #b85a2c;         /* Pecan pie (strong accent / CTA) */
+  --color-sage: #8fa083;          /* Dried sage */
+  --color-rosette: #c08576;       /* Rosette */
+
+  /* Back-compat aliases (older components referenced these) */
+  --color-ink-soft: #8c7567;
+  --color-petal: #e7d6bf;
+  --color-petal-light: #efe3cd;
+  --color-rose: #c08576;
+  --color-clay: #b85a2c;
 
   --font-display: var(--font-display), Georgia, serif;
   --font-sans: var(--font-sans), system-ui, sans-serif;
@@ -35,11 +45,11 @@ body {
   font-feature-settings: "kern", "liga";
 }
 
-/* Editorial display defaults */
+/* Editorial display defaults — Cormorant is high-contrast, so weight a touch up */
 .font-display {
   font-family: var(--font-display);
-  font-weight: 340;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  letter-spacing: 0.005em;
 }
 
 /* Tiny luxe label */
@@ -49,7 +59,7 @@ body {
   letter-spacing: var(--tracking-luxe);
   font-size: 0.7rem;
   font-weight: 500;
-  color: var(--color-ink-soft);
+  color: var(--color-walnut);
 }
 
 /* Hairline rules */
@@ -59,11 +69,10 @@ body {
 
 /* Selection */
 ::selection {
-  background: var(--color-petal);
-  color: var(--color-clay);
+  background: var(--color-sienna);
+  color: var(--color-ink);
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }

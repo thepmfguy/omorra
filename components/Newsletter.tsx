@@ -8,24 +8,24 @@ export function Newsletter() {
   const [sent, setSent] = useState(false);
 
   return (
-    <section className="bg-clay text-canvas">
+    <section id="newsletter" className="bg-pecan text-canvas">
       <div className="mx-auto max-w-[1400px] px-6 py-28 text-center md:px-10 md:py-36">
         <Reveal>
-          <p className="eyebrow mb-6 text-canvas/70">The list</p>
+          <p className="eyebrow mb-6 text-canvas/70">The door is open</p>
           <h2
-            className="font-display mx-auto max-w-[18ch] text-[2.2rem] leading-[1.1] md:text-[3.2rem]"
-            style={{ fontWeight: 330 }}
+            className="font-display mx-auto max-w-[20ch] text-[2.4rem] leading-[1.08] md:text-[3.4rem]"
+            style={{ fontWeight: 500 }}
           >
-            Be first to the next release.
+            Begin the practice today.
           </h2>
-          <p className="mx-auto mt-6 max-w-[44ch] text-[0.98rem] leading-relaxed text-canvas/75">
-            Our releases are small and numbered. Join the list for early access,
-            quiet notes on the practice, and nothing more.
+          <p className="mx-auto mt-6 max-w-[46ch] text-[0.98rem] leading-relaxed text-canvas/80">
+            Releases are small and numbered. Join the list for early access, a
+            weekly verse from the source, and quiet notes on the practice.
           </p>
 
           {sent ? (
             <p className="mt-10 text-[0.95rem] text-canvas/90">
-              Thank you. We will be in touch before the next bloom.
+              Thank you. The first verse will reach you soon.
             </p>
           ) : (
             <form

@@ -6,29 +6,30 @@ export function Sourcing() {
     <section id="sourcing" className="relative overflow-hidden">
       <div className="relative h-[80vh] min-h-[560px] w-full">
         <Image
-          src="/images/sourcing.png"
-          alt="Rose water decanted from glass, scattered Damask petals"
+          src="/images/story.png"
+          alt="Morning light through an open doorway"
           fill
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-ink/25" />
+        <div className="absolute inset-0 bg-ink/45" />
       </div>
 
       <div className="absolute inset-0 flex items-center">
         <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10">
           <Reveal className="max-w-xl">
-            <p className="eyebrow mb-6 text-canvas/80">Provenance</p>
+            <p className="eyebrow mb-6 text-canvas/80">Rooted in the source</p>
             <h2
               className="font-display text-[2.2rem] leading-[1.1] text-canvas md:text-[3.2rem]"
-              style={{ fontWeight: 330 }}
+              style={{ fontWeight: 500 }}
             >
-              Two thousand roses to a single bottle.
+              Dinacharya. The discipline of daily rhythm.
             </h2>
-            <p className="mt-7 max-w-[46ch] text-[1rem] leading-relaxed text-canvas/80">
-              Our rose water is triple-distilled from Damask roses harvested at
-              first light, when the oil is richest. No synthetics, no fillers,
-              nothing to mask. Only the flower, and water, and time.
+            <p className="mt-7 max-w-[48ch] text-[1rem] leading-relaxed text-canvas/80">
+              The instruction to begin and end the day with intention was set
+              down in the Charaka Samhita over two thousand years ago. We did not
+              invent it. We made the objects that bring it back into the texture
+              of an ordinary day.
             </p>
           </Reveal>
         </div>

@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { useCart } from "./CartProvider";
-import type { Product } from "@/lib/products";
+import { getProduct, type Product } from "@/lib/products";
 
 function Accordion({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -49,12 +50,17 @@ export function ProductBuy({ product }: { product: Product }) {
     setTimeout(() => setAdded(false), 1800);
   };
 
+  const eyebrow =
+    product.kind === "kit"
+      ? `Ritual Kit · ${product.audience === "Women" ? "For Her" : "For Him"}`
+      : `${product.number} · ${product.pillar ?? "The Collection"}`;
+
   return (
     <div className="md:sticky md:top-28">
-      <p className="eyebrow mb-4">{product.number} · The Collection</p>
+      <p className="eyebrow mb-4">{eyebrow}</p>
       <h1
-        className="font-display text-[2.6rem] leading-[1.04] text-ink md:text-[3.2rem]"
-        style={{ fontWeight: 330 }}
+        className="font-display text-[2.6rem] leading-[1.04] text-ink md:text-[3.4rem]"
+        style={{ fontWeight: 500 }}
       >
         {product.name}
       </h1>
@@ -73,6 +79,31 @@ export function ProductBuy({ product }: { product: Product }) {
         {product.description}
       </p>
 
+      {product.kind === "kit" && product.contents && (
+        <div className="mt-8 rounded-[3px] border border-ink/12 p-6">
+          <p className="text-[0.66rem] uppercase tracking-[0.16em] text-walnut">
+            What is inside
+          </p>
+          <ul className="mt-4 divide-y divide-ink/10">
+            {product.contents.map((cid) => {
+              const item = getProduct(cid);
+              if (!item) return null;
+              return (
+                <li key={cid} className="py-2.5">
+                  <Link
+                    href={`/products/${item.id}`}
+                    className="flex items-center justify-between text-[0.92rem] text-ink/80 transition-colors hover:text-ink"
+                  >
+                    <span>{item.name}</span>
+                    <span className="text-ink/40">{item.priceLabel}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
       <button
         onClick={onAdd}
         className="mt-9 w-full rounded-full bg-ink py-4 text-[0.78rem] font-medium uppercase tracking-[0.16em] text-canvas transition-all duration-500 hover:bg-clay hover:tracking-[0.2em] sm:w-auto sm:px-12"
@@ -80,7 +111,7 @@ export function ProductBuy({ product }: { product: Product }) {
         {added ? "Added to bag ✓" : `Add to bag — ${product.priceLabel}`}
       </button>
       <p className="mt-4 text-[0.76rem] text-ink/45">
-        Numbered piece · ships in rose-scented tissue · complimentary returns
+        Numbered piece · hand-wrapped · complimentary returns
       </p>
 
       {/* Specs */}

@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useCart } from "./CartProvider";
 
 const links = [
-  { label: "The Collection", href: "/#collection" },
-  { label: "The Ritual", href: "/#ritual" },
-  { label: "Provenance", href: "/#sourcing" },
+  { label: "Wisdom", href: "/#wisdom" },
+  { label: "Practice", href: "/#practice" },
+  { label: "Nourish", href: "/#nourish" },
+  { label: "Ritual Kit", href: "/#ritual-kit" },
+  { label: "Our Story", href: "/our-story" },
 ];
 
 export function Nav() {
@@ -23,8 +25,8 @@ export function Nav() {
   return (
     <>
       {/* Announcement bar */}
-      <div className="bg-clay text-canvas text-center text-[0.68rem] uppercase tracking-[0.2em] py-2.5 px-4">
-        Complimentary ritual mist with The Mat · A limited first release
+      <div className="bg-ink text-canvas text-center text-[0.68rem] uppercase tracking-[0.2em] py-2.5 px-4">
+        The door is open · The first release: Wisdom, Practice, Nourish
       </div>
 
       <header

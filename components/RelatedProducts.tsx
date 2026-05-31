@@ -10,15 +10,15 @@ export function RelatedProducts({ currentId }: { currentId: string }) {
       <Reveal className="mb-14 flex items-end justify-between">
         <h2
           className="font-display text-[1.9rem] leading-tight text-ink md:text-[2.6rem]"
-          style={{ fontWeight: 330 }}
+          style={{ fontWeight: 500 }}
         >
-          Complete the ritual
+          Complete the practice
         </h2>
         <Link
-          href="/#collection"
-          className="hidden text-[0.76rem] uppercase tracking-[0.16em] text-ink/55 transition-colors hover:text-ink sm:block"
+          href="/#pillars"
+          className="hidden text-[0.76rem] uppercase tracking-[0.16em] text-walnut transition-colors hover:text-ink sm:block"
         >
-          All four objects →
+          The three pillars →
         </Link>
       </Reveal>
       <div className="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-3 md:gap-x-7">

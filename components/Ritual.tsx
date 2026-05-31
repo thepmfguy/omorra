@@ -1,71 +1,63 @@
-import Image from "next/image";
 import { Reveal } from "./ui/Reveal";
 
 const steps = [
   {
     n: "01",
-    title: "Mist",
-    body: "Two breaths of rose water over the mat and the wrists. The scent marks the threshold between the day and the practice.",
+    time: "Morning",
+    title: "Read",
+    accent: "text-sienna",
+    body: "Draw a card. One line from the Gita or the Upanishads, and a reflection to carry. The mind is given something true to hold before the day fills it.",
   },
   {
     n: "02",
-    title: "Unroll",
-    body: "Lay out The Mat. Warmed by the body, the cured rose lifts faintly from the rubber, grounding the first pose.",
+    time: "Before the day",
+    title: "Practice",
+    accent: "text-sage",
+    body: "Unroll the kusha-grass mat. Sit, breathe, and give the morning the pause it forgot. A plain and grounding place to begin.",
   },
   {
     n: "03",
-    title: "Return",
-    body: "Fold the wrap beneath the knees, settle onto the block, and stay a little longer than you meant to.",
+    time: "Night",
+    title: "Nourish",
+    accent: "text-rosette",
+    body: "Cleanse, then press the moisturizer into the skin, and mist the room. The daily care of dinacharya, the way the day is set down.",
   },
 ];
 
 export function Ritual() {
   return (
-    <section id="ritual" className="bg-canvas-deep">
-      <div className="mx-auto grid max-w-[1400px] items-center gap-16 px-6 py-28 md:grid-cols-2 md:gap-24 md:px-10 md:py-40">
-        <Reveal>
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[2px] bg-petal-light">
-            <Image
-              src="/images/ritual.png"
-              alt="A serene morning practice on an Omorra mat"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-        </Reveal>
+    <section id="ritual" className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-36">
+      <Reveal className="mb-16 max-w-[46ch] md:mb-20">
+        <p className="eyebrow mb-6">The ritual</p>
+        <h2
+          className="font-display text-[2.1rem] leading-[1.1] text-ink md:text-[3rem]"
+          style={{ fontWeight: 500 }}
+        >
+          A way of beginning and ending a day.
+        </h2>
+      </Reveal>
 
-        <div>
-          <Reveal>
-            <p className="eyebrow mb-6">The ritual</p>
-            <h2
-              className="font-display text-[2.1rem] leading-[1.1] text-ink md:text-[3rem]"
-              style={{ fontWeight: 330 }}
-            >
-              A few unhurried minutes, kept for yourself.
-            </h2>
+      <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-3">
+        {steps.map((s, i) => (
+          <Reveal key={s.n} delay={0.1 * i}>
+            <div className="border-t border-ink/15 pt-7">
+              <div className="flex items-baseline justify-between">
+                <span className={`font-display text-3xl ${s.accent}`} style={{ fontWeight: 500 }}>
+                  {s.n}
+                </span>
+                <span className="text-[0.66rem] uppercase tracking-[0.18em] text-walnut">
+                  {s.time}
+                </span>
+              </div>
+              <h3 className="mt-5 font-display text-2xl text-ink" style={{ fontWeight: 500 }}>
+                {s.title}
+              </h3>
+              <p className="mt-3 max-w-[40ch] text-[0.95rem] leading-relaxed text-walnut">
+                {s.body}
+              </p>
+            </div>
           </Reveal>
-
-          <div className="mt-12 space-y-10">
-            {steps.map((s, i) => (
-              <Reveal key={s.n} delay={0.08 * i}>
-                <div className="flex gap-6 border-t border-ink/12 pt-7">
-                  <span className="font-display text-lg text-rose" style={{ fontWeight: 400 }}>
-                    {s.n}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-xl text-ink" style={{ fontWeight: 400 }}>
-                      {s.title}
-                    </h3>
-                    <p className="mt-2 max-w-[42ch] text-[0.95rem] leading-relaxed text-ink/65">
-                      {s.body}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );
