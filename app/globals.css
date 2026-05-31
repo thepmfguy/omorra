@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* ---- Omorra design tokens ---- */
+@theme {
+  --color-canvas: #f5f0e8;
+  --color-canvas-deep: #efe7da;
+  --color-ink: #26221e;
+  --color-ink-soft: #5c544c;
+  --color-petal: #e7c9c2;
+  --color-petal-light: #f3e2dd;
+  --color-rose: #c98a82;
+  --color-clay: #5e4039;
+  --color-sage: #6b7363;
+
+  --font-display: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+
+  --tracking-luxe: 0.18em;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+}
+
+/* Editorial display defaults */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 340;
+  letter-spacing: -0.01em;
+}
+
+/* Tiny luxe label */
+.eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-luxe);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+}
+
+/* Hairline rules */
+.hairline {
+  border-color: color-mix(in srgb, var(--color-ink) 14%, transparent);
+}
+
+/* Selection */
+::selection {
+  background: var(--color-petal);
+  color: var(--color-clay);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
