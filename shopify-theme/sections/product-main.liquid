@@ -1,0 +1,232 @@
+{%- liquid
+  assign coll = product.collections.first
+  assign cv = product.selected_or_first_available_variant
+  assign m = product.metafields.custom
+  assign coming_soon = false
+  if product.tags contains 'coming-soon'
+    assign coming_soon = true
+  endif
+-%}
+<div class="pdp" data-pdp>
+  <nav class="pdp-breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url }}">Home</a><span aria-hidden="true">/</span>
+    {%- if coll -%}<a href="{{ coll.url }}">{{ coll.title }}</a><span aria-hidden="true">/</span>{%- endif -%}
+    <span aria-current="page">{{ product.title }}</span>
+  </nav>
+
+  <div class="pdp-grid">
+    <!-- Gallery -->
+    <div class="pdp-gallery">
+      <div class="pdp-gallery-main">
+        {%- if product.featured_image -%}
+          <img id="pdp-main-img" src="{{ product.featured_image | image_url: width: 1200 }}"
+               srcset="{{ product.featured_image | image_url: width: 700 }} 700w, {{ product.featured_image | image_url: width: 1200 }} 1200w, {{ product.featured_image | image_url: width: 1600 }} 1600w"
+               sizes="(min-width:768px) 55vw, 100vw"
+               alt="{{ product.featured_image.alt | default: product.title | escape }}"
+               width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" loading="eager" fetchpriority="high">
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="pdp-thumbs">
+          {%- for image in product.images limit: 6 -%}
+            <button type="button" class="pdp-thumb{% if forloop.first %} is-active{% endif %}" data-thumb data-media-id="{{ image.id }}"
+                    onclick="document.getElementById('pdp-main-img').src='{{ image | image_url: width: 1200 }}';document.querySelectorAll('[data-thumb]').forEach(function(t){t.classList.remove('is-active')});this.classList.add('is-active');"
+                    aria-label="View image {{ forloop.index }}">
+              <img src="{{ image | image_url: width: 200 }}" alt="" width="80" height="100" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Buy column -->
+    <div class="pdp-info">
+      <div class="pdp-info-sticky">
+        {%- if m.number != blank -%}<p class="pdp-eyebrow">{{ m.number }}</p>{%- endif -%}
+        <h1 class="pdp-title font-display">{{ product.title }}</h1>
+        {%- if m.tagline != blank -%}<p class="pdp-tagline">{{ m.tagline }}</p>{%- endif -%}
+
+        {%- if coming_soon -%}
+          <div class="pdp-price-row"><span class="pdp-price pdp-price--soon">Coming Soon</span></div>
+        {%- else -%}
+          <div class="pdp-price-row">
+            <span class="pdp-price" data-pdp-price>{{ cv.price | money }}</span>
+            {%- if cv.compare_at_price and cv.compare_at_price > cv.price -%}
+              <span class="pdp-compare" data-pdp-compare>{{ cv.compare_at_price | money }}</span>
+              <span class="pdp-save" data-pdp-save>Save {{ cv.compare_at_price | minus: cv.price | money }}</span>
+            {%- endif -%}
+          </div>
+          <p class="pdp-currency-note">Local currency shown for your region. Shipping and taxes at checkout.</p>
+        {%- endif -%}
+
+        {%- if product.description != blank -%}<div class="pdp-desc">{{ product.description }}</div>{%- endif -%}
+
+        {%- form 'product', product, id: 'pdp-form', novalidate: 'novalidate' -%}
+          {%- unless product.has_only_default_variant -%}
+            <div class="pdp-options">
+              {%- for option in product.options_with_values -%}
+                <div class="pdp-option">
+                  <span class="pdp-option-label">{{ option.name }}</span>
+                  <div class="pdp-option-values">
+                    {%- for value in option.values -%}
+                      <label class="pdp-swatch">
+                        <input type="radio" name="option{{ option.position }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %} data-option-input>
+                        <span>{{ value }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endunless -%}
+
+          <input type="hidden" name="id" value="{{ cv.id }}" data-variant-id>
+          <div class="pdp-actions">
+            {%- if coming_soon -%}
+              <span class="btn-primary pdp-add pdp-add--soon" aria-disabled="true">Coming Soon</span>
+            {%- else -%}
+              <div class="qty-stepper">
+                <button type="button" aria-label="Decrease quantity" onclick="var i=document.getElementById('pdp-qty');i.value=Math.max(1,parseInt(i.value)-1);">−</button>
+                <input id="pdp-qty" name="quantity" type="number" min="1" max="10" value="1" aria-label="Quantity">
+                <button type="button" aria-label="Increase quantity" onclick="var i=document.getElementById('pdp-qty');i.value=Math.min(10,parseInt(i.value)+1);">+</button>
+              </div>
+              <button type="submit" class="btn-primary pdp-add" data-pdp-add{% unless cv.available %} disabled{% endunless %}>
+                {%- if cv.available -%}Add to bag{%- else -%}Sold out{%- endif -%}
+              </button>
+            {%- endif -%}
+          </div>
+        {%- endform -%}
+
+        {%- if section.settings.trust_line != blank -%}<p class="pdp-trust">{{ section.settings.trust_line }}</p>{%- endif -%}
+
+        <!-- Accordions -->
+        <div class="pdp-accordions">
+          {%- if m.detail != blank -%}{%- render 'pdp-accordion', id: 'detail', label: 'Detail', body: m.detail, open: true -%}{%- endif -%}
+          {%- if m.ritual != blank -%}{%- render 'pdp-accordion', id: 'ritual', label: 'The ritual', body: m.ritual -%}{%- endif -%}
+          {%- if m.story != blank -%}{%- render 'pdp-accordion', id: 'story', label: 'The story', body: m.story -%}{%- endif -%}
+          {%- if m.care != blank -%}{%- render 'pdp-accordion', id: 'care', label: 'Care', body: m.care -%}{%- endif -%}
+          {%- if section.settings.shipping_text != blank -%}{%- render 'pdp-accordion', id: 'shipping', label: 'Shipping & Returns', body: section.settings.shipping_text -%}{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Related products {%- endcomment -%}
+  {%- if section.settings.show_related and coll -%}
+    {%- assign related = coll.products -%}
+    <section class="pdp-related">
+      <h2 class="pdp-related-heading font-display">{{ section.settings.related_heading | default: 'You may also like' }}</h2>
+      <div class="pdp-related-grid">
+        {%- assign shown = 0 -%}
+        {%- for p in related -%}
+          {%- if p.id != product.id and shown < 4 -%}
+            {%- assign shown = shown | plus: 1 -%}
+            <a href="{{ p.url }}" class="pdp-related-card">
+              <div class="pdp-related-img">
+                {%- if p.featured_image -%}<img src="{{ p.featured_image | image_url: width: 500 }}" alt="{{ p.featured_image.alt | default: p.title | escape }}" width="250" height="312" loading="lazy">{%- endif -%}
+              </div>
+              <div class="pdp-related-row"><span class="pdp-related-name">{{ p.title }}</span><span class="pdp-related-price">{{ p.price | money }}</span></div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{%- comment -%} Sticky mobile buy bar {%- endcomment -%}
+<div class="pdp-sticky" data-pdp-sticky aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">{{ product.title }}</span>
+    {%- unless coming_soon -%}<span class="pdp-sticky-price" data-sticky-price>{{ cv.price | money }}</span>{%- endunless -%}
+  </div>
+  {%- if coming_soon -%}
+    <span class="btn-primary pdp-add--soon" aria-disabled="true">Coming Soon</span>
+  {%- else -%}
+    <button type="button" class="btn-primary" data-sticky-add{% unless cv.available %} disabled{% endunless %}>{% if cv.available %}Add to bag{% else %}Sold out{% endif %}</button>
+  {%- endif -%}
+</div>
+
+<script type="application/json" data-pdp-variants>{{ product.variants | json }}</script>
+<script>
+(function(){
+  var root=document.querySelector('[data-pdp]');
+  if(!root) return;
+  var form=document.getElementById('pdp-form');
+  var variants=[];
+  try{ variants=JSON.parse(document.querySelector('[data-pdp-variants]').textContent); }catch(e){}
+  var idInput=root.querySelector('[data-variant-id]');
+  var priceEl=root.querySelector('[data-pdp-price]');
+  var addBtn=root.querySelector('[data-pdp-add]');
+  var mainImg=document.getElementById('pdp-main-img');
+  var stickyPrice=document.querySelector('[data-sticky-price]');
+  var stickyAdd=document.querySelector('[data-sticky-add]');
+  var CUR='{{ shop.currency }}';
+  function money(cents){ try{return new Intl.NumberFormat(OMORRA_LOCALE,{style:'currency',currency:CUR}).format(cents/100);}catch(e){return (cents/100).toFixed(2);} }
+
+  function currentOptions(){ return Array.prototype.map.call(root.querySelectorAll('[data-option-input]:checked'),function(i){return i.value;}); }
+  function findVariant(){
+    var opts=currentOptions();
+    if(!opts.length) return variants[0];
+    return variants.find(function(v){ return v.options.every(function(o,i){return o===opts[i];}); });
+  }
+  function updateVariant(){
+    var v=findVariant();
+    if(!v){ if(addBtn){addBtn.textContent='Unavailable';addBtn.setAttribute('disabled','');} return; }
+    if(idInput) idInput.value=v.id;
+    if(priceEl) priceEl.textContent=money(v.price);
+    if(stickyPrice) stickyPrice.textContent=money(v.price);
+    if(addBtn){
+      if(v.available){ addBtn.removeAttribute('disabled'); addBtn.textContent='Add to bag'; }
+      else { addBtn.setAttribute('disabled',''); addBtn.textContent='Sold out'; }
+    }
+    if(stickyAdd){ if(v.available){stickyAdd.removeAttribute('disabled');stickyAdd.textContent='Add to bag';}else{stickyAdd.setAttribute('disabled','');stickyAdd.textContent='Sold out';} }
+    if(v.featured_image && mainImg){ mainImg.src=v.featured_image.src.replace(/(\.[a-z]+)(\?|$)/i,'_1200x$1$2'); }
+    try{ var u=new URL(window.location); u.searchParams.set('variant',v.id); window.history.replaceState({},'',u); }catch(e){}
+  }
+  root.querySelectorAll('[data-option-input]').forEach(function(i){ i.addEventListener('change',updateVariant); });
+
+  function doAdd(){
+    if(!idInput) return;
+    var q=parseInt((document.getElementById('pdp-qty')||{}).value||1);
+    addToCart(idInput.value,q);
+  }
+  if(form){ form.addEventListener('submit',function(e){ e.preventDefault(); doAdd(); }); }
+  if(stickyAdd){ stickyAdd.addEventListener('click',doAdd); }
+
+  // Accordions
+  root.querySelectorAll('[data-acc-head]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var body=document.getElementById(btn.getAttribute('aria-controls'));
+      var open=btn.getAttribute('aria-expanded')==='true';
+      btn.setAttribute('aria-expanded', open?'false':'true');
+      if(body){ if(open){body.setAttribute('hidden','');}else{body.removeAttribute('hidden');} }
+    });
+  });
+
+  // Mobile sticky bar
+  var sticky=document.querySelector('[data-pdp-sticky]');
+  if(sticky && addBtn && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ sticky.classList.remove('is-visible'); sticky.setAttribute('aria-hidden','true'); }
+        else { sticky.classList.add('is-visible'); sticky.setAttribute('aria-hidden','false'); }
+      });
+    },{rootMargin:'0px 0px -80% 0px'});
+    io.observe(addBtn);
+  }
+  // No init call: server-rendered price/availability are already correct;
+  // updateVariant runs on option change (when OMORRA_LOCALE is defined).
+})();
+</script>
+{% schema %}
+{
+  "name": "Product Main",
+  "settings": [
+    { "type": "text", "id": "trust_line", "label": "Trust line", "default": "Numbered piece · hand-wrapped · complimentary returns" },
+    { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
+    { "type": "text", "id": "related_heading", "label": "Related heading", "default": "You may also like" },
+    { "type": "textarea", "id": "shipping_text", "label": "Shipping & Returns text", "default": "Dispatched within 2 to 3 working days. Complimentary returns within 14 days on unopened pieces." }
+  ]
+}
+{% endschema %}

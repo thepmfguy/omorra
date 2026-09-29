@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": { "image": "shopify://shop_images/banner-image.png", "heading": "A quieter way of living.", "body": "<p>Objects and rituals for everyday wellbeing, rooted in the wisdom of India.</p>", "cta_label": "Discover Omorra", "cta_link": "/collections/all", "overlay_opacity": 0 } },
+    "pillars": {
+      "type": "pillars",
+      "blocks": {
+        "wisdom": { "type": "panel", "settings": { "collection": "wisdom-1", "image": "shopify://shop_images/wisdom-image.png", "default_asset": "wisdom-cards.png", "label": "Wisdom", "lead": "For the inner life.", "text": "Enduring ideas from Indian philosophy, thoughtfully brought into the present, to be read, reflected upon and returned to.", "cta_label": "Discover Wisdom" } },
+        "practice": { "type": "panel", "settings": { "collection": "practice-1", "image": "shopify://shop_images/practice-image.png", "default_asset": "practice-mat.png", "label": "Practice", "lead": "For the body.", "text": "Objects rooted in the traditions of yoga, thoughtfully made for movement, stillness and the quiet discipline of practice.", "cta_label": "Discover Practice" } },
+        "nourish": { "type": "panel", "settings": { "collection": "nourish", "image": "shopify://shop_images/nourish-image.png", "default_asset": "cat-nourish.png", "label": "Nourish", "lead": "For everyday care.", "text": "Botanical care inspired by Ayurveda, thoughtfully reimagined for the rituals of modern life.", "cta_label": "Discover Nourish" } }
+      },
+      "block_order": ["wisdom", "practice", "nourish"],
+      "settings": { "heading": "Wisdom · Practice · Nourish", "subheading": "Omorra brings together enduring Indian traditions and the rhythms of contemporary life. Thoughtfully made objects for the mind, body and daily ritual." }
+    },
+    "featured": { "type": "featured-product", "settings": { "product": "the-mat", "image": "shopify://shop_images/featured-image.png", "heading": "Omorra Kusha Mat", "eyebrow": "Featured / New at Omorra", "badge_label": "Available Now", "detail": "A deeper practice begins beneath you. Natural Kusha grass, woven into a firm, grounding surface for the established practitioner.", "cta_label": "Discover Kusha", "default_asset": "practice-mat.png", "layout": "left" } },
+    "campaign": { "type": "campaign-banner", "settings": { "style": "split", "eyebrow": "Coming Soon", "heading": "Wisdom and Nourish", "text": "For the mind. For the skin. For the everyday. New rituals, rooted in enduring wisdom and considered for life today.", "cta_label": "", "left_image": "shopify://shop_images/wisdom-image.png", "left_default": "wisdom-cards.png", "right_image": "shopify://shop_images/nourish-image.png", "right_default": "cat-nourish.png" } },
+    "newsletter": { "type": "newsletter", "settings": {} }
+  },
+  "order": ["hero", "pillars", "featured", "campaign", "newsletter"]
+}

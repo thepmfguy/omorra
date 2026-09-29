@@ -1,0 +1,40 @@
+/* ============================================================
+   OMORRA — Slice 5 (Campaign Banner)
+   ============================================================ */
+
+.campaign__eyebrow{margin-bottom:1.25rem;}
+.campaign__heading{font-size:clamp(1.9rem,3vw,2.8rem);line-height:1.1;font-weight:500;color:var(--ink);}
+.campaign__text{margin-top:1rem;font-size:0.98rem;line-height:1.65;color:var(--walnut);}
+.campaign__cta{display:inline-block;margin-top:1.5rem;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:3px;transition:color 0.2s,border-color 0.2s;}
+.campaign__cta:hover{color:var(--pecan);border-color:var(--pecan);}
+
+/* Split: image · text · image */
+.campaign--split{background:var(--camp-bg,var(--soft-parchment,#e8ddd2));}
+.campaign__grid{display:grid;grid-template-columns:1fr;gap:2rem;align-items:center;padding:3.5rem 1.5rem;}
+@media (min-width:900px){
+  .campaign__grid{grid-template-columns:1fr 1.5fr 1fr;gap:3rem;padding:4.5rem 2.5rem;}
+}
+.campaign__center{text-align:center;max-width:42ch;margin:0 auto;}
+.campaign__side{display:none;}
+@media (min-width:900px){.campaign__side{display:block;}}
+.campaign__side img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px;}
+
+/* Full background style */
+.campaign--bg{position:relative;overflow:hidden;min-height:56vh;display:flex;align-items:center;}
+.campaign__bg-media{position:absolute;inset:0;z-index:0;}
+.campaign__bg-img{width:100%;height:100%;object-fit:cover;}
+.campaign__bg-img--m{display:none;}
+.campaign__scrim{position:absolute;inset:0;z-index:1;background:rgba(250,245,236,var(--camp-overlay,0.25));}
+.campaign--bg .campaign__inner{position:relative;z-index:2;width:100%;}
+.campaign--bg .campaign__center{color:var(--camp-text,var(--ink));}
+.campaign--bg .campaign__heading,.campaign--bg .campaign__text,.campaign--bg .campaign__cta{color:currentColor;}
+.campaign--bg .campaign__cta{border-color:currentColor;}
+.campaign--pos-left .campaign__center{text-align:left;margin:0;}
+@media (max-width:767px){
+  .campaign__bg-img--d{display:none;}
+  .campaign__bg-img--m{display:block;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .campaign__cta{transition:none;}
+}

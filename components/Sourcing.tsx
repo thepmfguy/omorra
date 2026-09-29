@@ -4,7 +4,7 @@ import { Reveal } from "./ui/Reveal";
 export function Sourcing() {
   return (
     <section id="sourcing" className="relative overflow-hidden">
-      <div className="relative h-[80vh] min-h-[560px] w-full">
+      <div className="relative h-[60vh] min-h-[440px] w-full">
         <Image
           src="/images/story.png"
           alt="Morning light through an open doorway"
@@ -25,7 +25,7 @@ export function Sourcing() {
             >
               Dinacharya. The discipline of daily rhythm.
             </h2>
-            <p className="mt-7 max-w-[48ch] text-[1rem] leading-relaxed text-canvas/80">
+            <p className="mt-7 max-w-[48ch] text-[1rem] leading-relaxed text-canvas/95">
               The instruction to begin and end the day with intention was set
               down in the Charaka Samhita over two thousand years ago. We did not
               invent it. We made the objects that bring it back into the texture

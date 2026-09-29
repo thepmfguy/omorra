@@ -13,8 +13,8 @@ export function RitualKit() {
 
   return (
     <section id="ritual-kit" className="bg-canvas-deep">
-      <div className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-36">
-        <Reveal className="mb-16 max-w-[60ch]">
+      <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-20">
+        <Reveal className="mb-10 max-w-[60ch]">
           <p className="eyebrow mb-6">The combo · Ritual Kit</p>
           <h2
             className="font-display text-[2.2rem] leading-[1.1] text-ink md:text-[3.2rem]"
@@ -41,7 +41,7 @@ export function RitualKit() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover transition-transform duration-[1300ms] ease-out group-hover:scale-[1.04]"
                   />
-                  <span className="absolute left-5 top-5 rounded-full bg-canvas/85 px-3 py-1 text-[0.62rem] uppercase tracking-[0.18em] text-ink/75 backdrop-blur-sm">
+                  <span className="absolute left-5 top-5 rounded-full bg-canvas/85 px-3 py-1 text-[0.62rem] uppercase tracking-[0.18em] text-ink backdrop-blur-sm">
                     {kit.audience === "Women" ? "For Her" : "For Him"}
                   </span>
                 </Link>
@@ -51,7 +51,7 @@ export function RitualKit() {
                     <h3 className="font-display text-2xl text-ink md:text-[1.8rem]" style={{ fontWeight: 500 }}>
                       {kit.name}
                     </h3>
-                    <span className="text-[0.95rem] text-ink/70">{kit.priceLabel}</span>
+                    <span className="text-[0.95rem] text-walnut">{kit.priceLabel}</span>
                   </div>
 
                   <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-ink/10 pt-5">

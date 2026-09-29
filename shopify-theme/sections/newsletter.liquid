@@ -1,0 +1,45 @@
+<section id="newsletter" class="newsletter2">
+  <div class="container newsletter2-inner">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="newsletter2-heading font-display">{{ section.settings.heading }}</h2>{%- endif -%}
+    {%- if section.settings.body != blank -%}<p class="newsletter2-body">{{ section.settings.body }}</p>{%- endif -%}
+    {%- form 'customer', class: 'newsletter2-form', data-newsletter: '' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="newsletter2-field">
+        <label for="nl-email" class="sr-only">Email address</label>
+        <input id="nl-email" name="contact[email]" type="email" placeholder="Enter your email" required autocomplete="email" class="newsletter2-input">
+        <button type="submit" class="newsletter2-btn" data-nl-submit>{{ section.settings.button_label | default: 'Join Omorra' }}</button>
+      </div>
+      <div class="newsletter2-status" aria-live="polite">
+        {%- if form.posted_successfully? -%}
+          <p class="newsletter2-success">{{ section.settings.success | default: 'Thank you. Notes from Omorra will reach you soon.' }}</p>
+        {%- elsif form.errors -%}
+          <p class="newsletter2-error">{{ form.errors | default_errors }}</p>
+        {%- endif -%}
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+<script>
+(function(){
+  var f=document.querySelector('[data-newsletter]');
+  if(!f) return;
+  f.addEventListener('submit',function(){
+    var b=f.querySelector('[data-nl-submit]');
+    if(b){ b.setAttribute('disabled','');b.dataset.label=b.textContent;b.textContent='Joining…'; }
+  });
+})();
+</script>
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Stay Close" },
+    { "type": "text", "id": "heading", "label": "Heading (optional)" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "New objects, considered rituals and occasional notes from Omorra." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Join Omorra" },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thank you. Notes from Omorra will reach you soon." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

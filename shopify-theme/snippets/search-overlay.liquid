@@ -1,0 +1,89 @@
+<div class="search-overlay" id="search-overlay" data-search-overlay aria-hidden="true">
+  <div class="search-overlay__scrim" data-search-close></div>
+  <div class="search-overlay__panel" role="dialog" aria-modal="true" aria-label="Search">
+    <form class="search-overlay__form" action="{{ routes.search_url }}" method="get" role="search">
+      <span class="search-overlay__icon" aria-hidden="true">{%- render 'icon', name: 'search' -%}</span>
+      <input type="search" name="q" class="search-overlay__input" data-search-input placeholder="Search Omorra" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Search" aria-controls="search-results">
+      <button type="button" class="search-overlay__close" data-search-close aria-label="Close search">Close</button>
+    </form>
+    <div class="search-overlay__results" id="search-results" data-search-results aria-live="polite"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay=document.getElementById('search-overlay');
+  if(!overlay) return;
+  var input=overlay.querySelector('[data-search-input]');
+  var results=overlay.querySelector('[data-search-results]');
+  var form=overlay.querySelector('.search-overlay__form');
+  var closeEls=document.querySelectorAll('[data-search-close]');
+  var openEls=document.querySelectorAll('[data-search-open]');
+  var lastFocus=null, timer=null, controller=null, activeIndex=-1;
+  var PSURL={{ routes.predictive_search_url | json }};
+  var CUR='{{ shop.currency }}';
+  function money(c){ try{return new Intl.NumberFormat(OMORRA_LOCALE,{style:'currency',currency:CUR}).format(c/100);}catch(e){return (c/100).toFixed(2);} }
+
+  function open(){ lastFocus=document.activeElement; overlay.classList.add('is-open'); overlay.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(function(){input.focus();},50); document.addEventListener('keydown',onKey); }
+  function close(){ overlay.classList.remove('is-open'); overlay.setAttribute('aria-hidden','true'); document.body.style.overflow=''; document.removeEventListener('keydown',onKey); if(lastFocus)lastFocus.focus(); }
+  openEls.forEach(function(el){ el.addEventListener('click',function(e){ e.preventDefault(); open(); }); });
+  closeEls.forEach(function(el){ el.addEventListener('click',close); });
+
+  function items(){ return results.querySelectorAll('[data-result]'); }
+  function onKey(e){
+    if(e.key==='Escape'){ close(); return; }
+    var list=items();
+    if(e.key==='ArrowDown'){ e.preventDefault(); activeIndex=Math.min(activeIndex+1,list.length-1); highlight(list); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); activeIndex=Math.max(activeIndex-1,-1); highlight(list); }
+    else if(e.key==='Enter' && activeIndex>-1 && list[activeIndex]){ e.preventDefault(); window.location=list[activeIndex].getAttribute('href'); }
+  }
+  function highlight(list){ list.forEach(function(el,i){ el.classList.toggle('is-active',i===activeIndex); if(i===activeIndex) el.scrollIntoView({block:'nearest'}); }); }
+
+  function render(data,q){
+    activeIndex=-1;
+    var r=(data && data.resources && data.resources.results) || {};
+    var html='';
+    if(r.products && r.products.length){
+      html+='<div class="sr-group"><p class="sr-group-label">Products</p>';
+      r.products.forEach(function(p){
+        var img=p.featured_image && p.featured_image.url ? p.featured_image.url : (p.image||'');
+        var price='';
+        if(typeof p.price==='number'){ price=money(p.price); }
+        else if(p.price){ var n=parseFloat(String(p.price).replace(/,/g,'')); price=isNaN(n)?p.price:money(Math.round(n*100)); }
+        html+='<a class="sr-item sr-item--product" data-result href="'+p.url+'">'+
+          '<span class="sr-thumb">'+(img?'<img src="'+img+'" alt="" loading="lazy">':'')+'</span>'+
+          '<span class="sr-item-body"><span class="sr-item-title">'+p.title+'</span><span class="sr-item-price">'+price+'</span></span></a>';
+      });
+      html+='</div>';
+    }
+    if(r.collections && r.collections.length){
+      html+='<div class="sr-group"><p class="sr-group-label">Collections</p>';
+      r.collections.forEach(function(c){ html+='<a class="sr-item" data-result href="'+c.url+'">'+c.title+'</a>'; });
+      html+='</div>';
+    }
+    var other=(r.pages||[]).concat(r.articles||[]);
+    if(other.length){
+      html+='<div class="sr-group"><p class="sr-group-label">Reading</p>';
+      other.forEach(function(x){ html+='<a class="sr-item" data-result href="'+x.url+'">'+x.title+'</a>'; });
+      html+='</div>';
+    }
+    if(!html){ html='<p class="sr-empty">No matches for &ldquo;'+q.replace(/</g,'&lt;')+'&rdquo;.</p>'; }
+    else { html+='<a class="sr-viewall" data-result href="{{ routes.search_url }}?q='+encodeURIComponent(q)+'">View all results →</a>'; }
+    results.innerHTML=html;
+  }
+
+  function search(q){
+    if(controller) controller.abort();
+    controller=('AbortController' in window)?new AbortController():null;
+    results.classList.add('is-loading');
+    var url=PSURL+'.json?q='+encodeURIComponent(q)+'&resources[type]=product,collection,page,article&resources[limit]=5&resources[options][unavailable_products]=last';
+    fetch(url,{signal:controller?controller.signal:undefined}).then(function(r){return r.json();}).then(function(d){ results.classList.remove('is-loading'); render(d,q); }).catch(function(e){ if(e.name!=='AbortError'){ results.classList.remove('is-loading'); } });
+  }
+
+  input.addEventListener('input',function(){
+    var q=input.value.trim();
+    clearTimeout(timer);
+    if(q.length<2){ results.innerHTML=''; return; }
+    timer=setTimeout(function(){ search(q); },250);
+  });
+})();
+</script>

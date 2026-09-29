@@ -15,6 +15,7 @@ export type Product = {
   price: number;
   priceLabel: string;
   image: string;
+  alt: string;
   gallery: string[];
   detail: string;
   note: string;
@@ -41,6 +42,7 @@ export const products: Product[] = [
     price: 42,
     priceLabel: "$42",
     image: "/images/wisdom-cards.png",
+    alt: "The First 21 Days deck laid on cotton-rag paper, one card face up in morning light",
     gallery: ["/images/wisdom-cards.png", "/images/hero-still.png", "/images/story.png"],
     detail: "21 letterpress cards · cotton rag",
     note: "Wisdom",
@@ -72,6 +74,7 @@ export const products: Product[] = [
     price: 120,
     priceLabel: "$120",
     image: "/images/practice-mat.png",
+    alt: "Hand-woven kusha grass practice mat unrolled on a warm stone floor",
     gallery: ["/images/practice-mat.png", "/images/story.png", "/images/hero-still.png"],
     detail: "Organic kusha grass · 24 × 72 in",
     note: "Practice",
@@ -103,6 +106,7 @@ export const products: Product[] = [
     price: 38,
     priceLabel: "$38",
     image: "/images/sku-mist.png",
+    alt: "Triple-distilled rose water in frosted glass, catching soft window light",
     gallery: ["/images/sku-mist.png", "/images/cat-nourish.png", "/images/hero-still.png"],
     detail: "100ml · refillable frosted glass",
     note: "Nourish",
@@ -133,6 +137,7 @@ export const products: Product[] = [
     price: 44,
     priceLabel: "$44",
     image: "/images/sku-moist-women.png",
+    alt: "Omorra moisturizer for her in a frosted glass jar on cream linen",
     gallery: ["/images/sku-moist-women.png", "/images/cat-nourish.png", "/images/hero-still.png"],
     detail: "50ml · frosted glass jar",
     note: "Nourish · Her",
@@ -162,6 +167,7 @@ export const products: Product[] = [
     price: 44,
     priceLabel: "$44",
     image: "/images/sku-moist-men.png",
+    alt: "Omorra moisturizer for him in matte glass on a stone surface",
     gallery: ["/images/sku-moist-men.png", "/images/cat-nourish.png", "/images/hero-still.png"],
     detail: "50ml · matte glass jar",
     note: "Nourish · Him",
@@ -191,6 +197,7 @@ export const products: Product[] = [
     price: 32,
     priceLabel: "$32",
     image: "/images/sku-wash-women.png",
+    alt: "Omorra face wash for her in a frosted glass bottle, upright",
     gallery: ["/images/sku-wash-women.png", "/images/cat-nourish.png", "/images/hero-still.png"],
     detail: "150ml · frosted bottle",
     note: "Nourish · Her",
@@ -220,6 +227,7 @@ export const products: Product[] = [
     price: 32,
     priceLabel: "$32",
     image: "/images/sku-wash-men.png",
+    alt: "Omorra face wash for him in a matte glass bottle, upright",
     gallery: ["/images/sku-wash-men.png", "/images/cat-nourish.png", "/images/hero-still.png"],
     detail: "150ml · matte bottle",
     note: "Nourish · Him",
@@ -250,6 +258,7 @@ export const products: Product[] = [
     price: 140,
     priceLabel: "$140",
     image: "/images/ritual-kit-her.png",
+    alt: "Ritual Kit for her, hand-wrapped: mist, cards, moisturizer and face wash",
     gallery: ["/images/ritual-kit-her.png", "/images/cat-nourish.png", "/images/wisdom-cards.png"],
     detail: "4 pieces · saving of $16",
     note: "Combo · Her",
@@ -280,6 +289,7 @@ export const products: Product[] = [
     price: 140,
     priceLabel: "$140",
     image: "/images/ritual-kit-him.png",
+    alt: "Ritual Kit for him, hand-wrapped: mist, cards, moisturizer and face wash",
     gallery: ["/images/ritual-kit-him.png", "/images/cat-nourish.png", "/images/wisdom-cards.png"],
     detail: "4 pieces · saving of $16",
     note: "Combo · Him",

@@ -38,12 +38,12 @@ export function Nav() {
       >
         <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-10">
           {/* Left links */}
-          <ul className="hidden flex-1 items-center gap-9 md:flex">
+          <ul className="hidden flex-1 items-center gap-x-7 md:flex lg:gap-x-9">
             {links.map((l) => (
-              <li key={l.href}>
+              <li key={l.href} className="whitespace-nowrap">
                 <a
                   href={l.href}
-                  className="text-[0.72rem] uppercase tracking-[0.16em] text-ink/70 transition-colors duration-300 hover:text-ink"
+                  className="text-[0.72rem] uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:text-pecan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sienna"
                 >
                   {l.label}
                 </a>
@@ -64,10 +64,14 @@ export function Nav() {
           <div className="flex flex-1 items-center justify-end gap-6">
             <button
               onClick={open}
-              className="group flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.16em] text-ink/70 transition-colors hover:text-ink"
+              aria-label={`Open bag, ${count} ${count === 1 ? "item" : "items"}`}
+              className="group flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.16em] text-ink transition-colors hover:text-pecan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sienna"
             >
               Cart
-              <span className="grid h-5 min-w-5 place-items-center rounded-full bg-ink px-1 text-[0.62rem] text-canvas transition-colors group-hover:bg-clay">
+              <span
+                aria-live="polite"
+                className="grid h-5 min-w-5 place-items-center rounded-full bg-ink px-1 text-[0.62rem] text-canvas transition-colors group-hover:bg-pecan tabular-nums"
+              >
                 {count}
               </span>
             </button>

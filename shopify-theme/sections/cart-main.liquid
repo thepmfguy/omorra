@@ -1,0 +1,39 @@
+<section style="padding:3rem 0 6rem;">
+  <div class="container" style="max-width:840px;">
+    <h1 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:2.5rem;font-weight:500;color:var(--ink);margin-bottom:2.5rem;">Your Bag</h1>
+    {%- if cart.item_count == 0 -%}
+      <p style="color:var(--walnut);">Your bag is empty.</p>
+      <a href="/collections/all" class="btn-primary" style="display:inline-block;margin-top:2rem;">Browse the collection →</a>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div style="display:flex;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid rgba(61,36,24,0.1);">
+          <a href="{{ item.url }}"><img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" style="width:6rem;height:7.5rem;object-fit:cover;background:var(--petal-light);"></a>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <a href="{{ item.url }}" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;color:var(--ink);text-decoration:none;">{{ item.product.title }}</a>
+              <span style="color:var(--walnut);">{{ item.final_line_price | money }}</span>
+            </div>
+            <p style="font-size:0.85rem;color:var(--walnut);margin-top:0.25rem;">{{ item.price | money }} × {{ item.quantity }}</p>
+            <div style="display:flex;gap:0.75rem;margin-top:1rem;align-items:center;">
+              <a href="/cart/change?line={{ forloop.index }}&quantity={{ item.quantity | minus: 1 }}" style="color:var(--ink);text-decoration:none;">−</a>
+              <span>{{ item.quantity }}</span>
+              <a href="/cart/change?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}" style="color:var(--ink);text-decoration:none;">+</a>
+              <a href="/cart/change?line={{ forloop.index }}&quantity=0" style="margin-left:1rem;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--walnut);text-decoration:none;">Remove</a>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+      <div style="margin-top:2rem;display:flex;flex-direction:column;align-items:flex-end;gap:1rem;">
+        <div style="display:flex;justify-content:space-between;width:100%;max-width:320px;">
+          <span style="text-transform:uppercase;letter-spacing:0.14em;font-size:0.8rem;color:var(--walnut);">Subtotal</span>
+          <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;color:var(--ink);">{{ cart.total_price | money }}</span>
+        </div>
+        <p style="font-size:0.74rem;color:var(--walnut);">Shipping and taxes calculated at checkout.</p>
+        <a href="/checkout" class="btn-primary">Checkout →</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Cart Main", "settings": [] }
+{% endschema %}

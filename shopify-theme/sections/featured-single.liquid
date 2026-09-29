@@ -1,0 +1,54 @@
+{%- assign coll = section.settings.collection -%}
+{%- assign product = nil -%}
+{%- if coll and coll.products_count > 0 -%}
+  {%- assign product = coll.products.first -%}
+{%- endif -%}
+<section class="featured-single" id="{{ section.settings.anchor_id }}">
+  <div class="container">
+    <div class="featured-header">
+      <div class="pillar-name-row">
+        <span class="pillar-line {{ section.settings.accent }}"></span>
+        <span class="pillar-name {{ section.settings.accent }}">{{ section.settings.title | default: 'Featured' }}</span>
+      </div>
+      <p class="featured-header-blurb">{{ section.settings.blurb }}</p>
+    </div>
+    {%- if product -%}
+      <div class="featured-grid">
+        <a href="{{ product.url }}" class="featured-image" aria-label="View {{ product.title }}">
+          {%- if product.featured_image -%}
+            <img src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" width="600" height="450" loading="lazy">
+          {%- else -%}
+            <img src="{{ 'wisdom-cards.png' | asset_url }}" alt="{{ product.title }}" width="600" height="450" loading="lazy">
+          {%- endif -%}
+          <span class="featured-badge">{{ section.settings.badge | default: section.settings.title }}</span>
+        </a>
+        <div>
+          <p class="eyebrow">{{ section.settings.eyebrow | default: 'No. 01' }}</p>
+          <h3 class="featured-name">{{ product.title }}</h3>
+          <p class="featured-desc">{{ product.description | strip_html | truncate: 240 }}</p>
+          <div class="featured-actions">
+            <a href="{{ product.url }}" class="featured-btn">Add to bag — {{ product.price | money }}</a>
+            <a href="{{ product.url }}" class="featured-view">View details →</a>
+          </div>
+        </div>
+      </div>
+    {%- else -%}
+      <p style="color:var(--walnut);text-align:center;padding:3rem 0;">Select a collection with a product in the theme editor.</p>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Featured Single",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor id" },
+    { "type": "collection", "id": "collection", "label": "Collection (uses first product)" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Wisdom" },
+    { "type": "select", "id": "accent", "label": "Accent", "options": [{"value":"sienna","label":"Sienna"},{"value":"sage","label":"Sage"},{"value":"rosette","label":"Rosette"}], "default": "sienna" },
+    { "type": "text", "id": "blurb", "label": "Blurb", "default": "Something to read." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "No. 01" },
+    { "type": "text", "id": "badge", "label": "Badge" }
+  ],
+  "presets": [{ "name": "Featured Single" }]
+}
+{% endschema %}

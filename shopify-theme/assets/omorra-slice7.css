@@ -1,0 +1,91 @@
+/* ============================================================
+   OMORRA — Slice 7 (Product page)
+   ============================================================ */
+
+.pdp{max-width:1400px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+@media (min-width:768px){.pdp{padding:2rem 2.5rem 6rem;}}
+.pdp-breadcrumb{display:flex;flex-wrap:wrap;gap:0.5rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--walnut);margin-bottom:2rem;}
+.pdp-breadcrumb a{color:var(--walnut);text-decoration:none;}
+.pdp-breadcrumb a:hover{color:var(--ink);}
+.pdp-breadcrumb [aria-current]{color:var(--ink);}
+
+.pdp-grid{display:grid;grid-template-columns:1fr;gap:2.5rem;}
+@media (min-width:768px){.pdp-grid{grid-template-columns:1.35fr 1fr;gap:4rem;align-items:start;}}
+
+/* Gallery */
+.pdp-gallery-main{aspect-ratio:4/5;overflow:hidden;background:var(--petal-light);border-radius:2px;}
+.pdp-gallery-main img{width:100%;height:100%;object-fit:cover;}
+.pdp-thumbs{display:flex;gap:0.6rem;margin-top:0.75rem;flex-wrap:wrap;}
+.pdp-thumb{width:64px;height:80px;border:1px solid transparent;padding:0;cursor:pointer;background:var(--petal-light);overflow:hidden;border-radius:2px;transition:border-color 0.2s;}
+.pdp-thumb img{width:100%;height:100%;object-fit:cover;}
+.pdp-thumb.is-active{border-color:var(--ink);}
+.pdp-thumb:hover{border-color:var(--walnut);}
+
+/* Info */
+@media (min-width:768px){.pdp-info-sticky{position:sticky;top:calc(var(--header-h,76px) + 1.25rem);}}
+.pdp-eyebrow{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--walnut);}
+.pdp-title{margin-top:0.6rem;font-size:clamp(2rem,3vw,2.9rem);font-weight:500;line-height:1.05;color:var(--ink);}
+.pdp-tagline{margin-top:0.75rem;font-size:1.05rem;color:var(--walnut);}
+.pdp-price-row{display:flex;flex-wrap:wrap;align-items:center;gap:0.85rem;margin-top:1.5rem;}
+.pdp-price{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;color:var(--ink);}
+.pdp-compare{font-size:1rem;color:var(--walnut);text-decoration:line-through;}
+.pdp-save{background:rgba(143,160,131,0.16);color:var(--sage);border-radius:9999px;padding:0.3rem 0.8rem;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.12em;}
+.pdp-currency-note{font-size:0.72rem;color:var(--walnut);margin-top:0.5rem;}
+.pdp-desc{margin-top:1.5rem;max-width:52ch;font-size:1rem;line-height:1.7;color:var(--walnut);}
+.pdp-desc p + p{margin-top:0.75rem;}
+
+/* Options */
+.pdp-options{margin-top:1.75rem;display:flex;flex-direction:column;gap:1.25rem;}
+.pdp-option-label{display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--walnut);margin-bottom:0.6rem;}
+.pdp-option-values{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.pdp-swatch{position:relative;cursor:pointer;}
+.pdp-swatch input{position:absolute;opacity:0;inset:0;cursor:pointer;}
+.pdp-swatch span{display:inline-block;padding:0.55rem 1rem;border:1px solid rgba(61,36,24,0.25);border-radius:2px;font-size:0.85rem;color:var(--ink);transition:border-color 0.2s,background 0.2s;}
+.pdp-swatch input:checked + span{border-color:var(--ink);background:var(--ink);color:var(--canvas);}
+.pdp-swatch input:focus-visible + span{outline:2px solid var(--sienna);outline-offset:2px;}
+
+/* Actions */
+.pdp-actions{margin-top:2rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;}
+.pdp-add{flex:1;min-width:200px;}
+.pdp-add[disabled]{opacity:0.5;cursor:default;background:var(--walnut);}
+#pdp-qty{width:2.5rem;text-align:center;border:none;background:transparent;font-family:inherit;font-size:0.95rem;}
+.pdp-trust{font-size:0.74rem;color:var(--walnut);margin-top:1rem;}
+
+/* Accordions */
+.pdp-accordions{margin-top:2.5rem;border-top:1px solid rgba(61,36,24,0.14);}
+.pdp-acc{border-bottom:1px solid rgba(61,36,24,0.1);}
+.pdp-acc-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 0;background:none;border:none;cursor:pointer;font-family:inherit;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink);text-align:left;}
+.pdp-acc-icon{position:relative;width:12px;height:12px;flex-shrink:0;}
+.pdp-acc-icon::before,.pdp-acc-icon::after{content:"";position:absolute;background:currentColor;}
+.pdp-acc-icon::before{left:0;top:5.5px;width:12px;height:1px;}
+.pdp-acc-icon::after{left:5.5px;top:0;width:1px;height:12px;transition:transform 0.25s;}
+.pdp-acc-head[aria-expanded="true"] .pdp-acc-icon::after{transform:scaleY(0);}
+.pdp-acc-body{padding-bottom:1.25rem;}
+.pdp-acc-inner{font-size:0.92rem;line-height:1.7;color:var(--walnut);max-width:56ch;}
+.pdp-acc-inner p + p{margin-top:0.6rem;}
+
+/* Related */
+.pdp-related{margin-top:5rem;border-top:1px solid rgba(61,36,24,0.1);padding-top:3rem;}
+.pdp-related-heading{font-size:clamp(1.5rem,2.2vw,2rem);font-weight:500;color:var(--ink);text-align:center;margin-bottom:2.5rem;}
+.pdp-related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+@media (min-width:768px){.pdp-related-grid{grid-template-columns:repeat(4,1fr);gap:2rem;}}
+.pdp-related-card{text-decoration:none;display:block;}
+.pdp-related-img{aspect-ratio:4/5;overflow:hidden;background:var(--petal-light);border-radius:2px;}
+.pdp-related-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(0.16,1,0.3,1);}
+.pdp-related-card:hover .pdp-related-img img{transform:scale(1.04);}
+.pdp-related-row{margin-top:0.9rem;display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;}
+.pdp-related-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;color:var(--ink);}
+.pdp-related-price{font-size:0.85rem;color:var(--walnut);}
+
+/* Sticky mobile buy bar */
+.pdp-sticky{position:fixed;left:0;right:0;bottom:0;z-index:90;display:flex;align-items:center;gap:1rem;padding:0.75rem 1.25rem;background:var(--canvas);border-top:1px solid rgba(61,36,24,0.14);transform:translateY(110%);transition:transform 0.3s ease;box-shadow:0 -6px 20px -12px rgba(61,36,24,0.3);}
+.pdp-sticky.is-visible{transform:translateY(0);}
+.pdp-sticky-info{flex:1;display:flex;flex-direction:column;min-width:0;}
+.pdp-sticky-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pdp-sticky-price{font-size:0.8rem;color:var(--walnut);}
+.pdp-sticky .btn-primary{padding:0.75rem 1.5rem;white-space:nowrap;}
+@media (min-width:768px){.pdp-sticky{display:none;}}
+
+@media (prefers-reduced-motion:reduce){
+  .pdp-thumb,.pdp-swatch span,.pdp-acc-icon::after,.pdp-related-img img,.pdp-sticky{transition:none;}
+}

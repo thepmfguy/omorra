@@ -53,7 +53,7 @@ export function Spotlight() {
                   <dt className="text-[0.66rem] uppercase tracking-[0.16em] text-walnut">
                     {k}
                   </dt>
-                  <dd className="mt-1 text-[0.92rem] text-ink/80">{v}</dd>
+                  <dd className="mt-1 text-[0.92rem] text-ink">{v}</dd>
                 </div>
               ))}
             </dl>
@@ -67,7 +67,7 @@ export function Spotlight() {
               </button>
               <Link
                 href="/products/the-first-21-days"
-                className="text-[0.78rem] uppercase tracking-[0.16em] text-walnut transition-colors hover:text-ink"
+                className="text-[0.78rem] uppercase tracking-[0.16em] text-walnut transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sienna"
               >
                 View details →
               </Link>

@@ -1,0 +1,180 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign transparent = false
+  if section.settings.enable_transparent and request.page_type == 'index'
+    assign transparent = true
+  endif
+-%}
+<header
+  class="site-header{% if transparent %} site-header--transparent{% endif %}{% if section.settings.sticky %} site-header--sticky{% endif %}"
+  data-header
+  data-transparent="{{ transparent }}"
+  role="banner"
+>
+  <div class="site-header__inner container">
+    <button class="header-icon header-menu-toggle" type="button" data-menu-open aria-controls="mobile-drawer" aria-expanded="false" aria-label="Open menu">
+      <span class="header-burger" aria-hidden="true"><span></span><span></span></span>
+    </button>
+
+    <nav class="header-nav header-nav--left" aria-label="Primary">
+      <ul class="nav-links">
+        {%- for link in linklists[menu].links -%}
+          <li class="nav-item{% if link.links != blank %} has-dropdown{% endif %}">
+            <a href="{{ link.url }}"
+               class="nav-link{% if link.active or link.child_active %} is-active{% endif %}"
+               {% if link.links != blank %}aria-haspopup="true" aria-expanded="false"{% endif %}>
+              {{ link.title }}
+            </a>
+            {%- if link.links != blank -%}
+              <ul class="nav-dropdown">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}" class="nav-dropdown-link{% if child.active %} is-active{% endif %}">{{ child.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- else -%}
+          <li class="nav-item"><a href="{{ routes.all_products_collection_url }}" class="nav-link">Shop</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="site-wordmark" aria-label="{{ shop.name }} home">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, class: 'site-logo', widths: '200,400', loading: 'eager' }}
+      {%- else -%}
+        {{ shop.name | upcase }}
+      {%- endif -%}
+    </a>
+
+    <div class="header-actions">
+      {%- if section.settings.show_search -%}
+        <button type="button" class="header-icon" data-search-open aria-label="Search">
+          {%- render 'icon', name: 'search' -%}
+        </button>
+      {%- endif -%}
+      {%- if section.settings.show_account -%}
+        <a href="{{ routes.account_url }}" class="header-icon header-icon--account" aria-label="Account">
+          {%- render 'icon', name: 'account' -%}
+        </a>
+      {%- endif -%}
+      <button class="header-icon header-cart" type="button" onclick="openCart()" aria-label="Open bag">
+        {%- render 'icon', name: 'bag' -%}
+        <span class="nav-cart-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} Mobile drawer {%- endcomment -%}
+<div class="mobile-overlay" id="mobile-overlay" data-menu-close></div>
+<aside class="mobile-drawer" id="mobile-drawer" aria-label="Menu" aria-hidden="true">
+  <div class="mobile-drawer__head">
+    <span class="site-wordmark site-wordmark--drawer">{{ shop.name | upcase }}</span>
+    <button class="header-icon" type="button" data-menu-close aria-label="Close menu">{%- render 'icon', name: 'close' -%}</button>
+  </div>
+  <nav class="mobile-drawer__nav" aria-label="Mobile">
+    <ul class="m-nav">
+      {%- for link in linklists[menu].links -%}
+        <li class="m-nav-item{% if link.links != blank %} has-children{% endif %}">
+          <div class="m-nav-row">
+            <a href="{{ link.url }}" class="m-nav-link{% if link.active or link.child_active %} is-active{% endif %}">{{ link.title }}</a>
+            {%- if link.links != blank -%}
+              <button class="m-nav-expand" type="button" data-submenu-toggle aria-expanded="false" aria-label="Expand {{ link.title }}">{%- render 'icon', name: 'plus' -%}</button>
+            {%- endif -%}
+          </div>
+          {%- if link.links != blank -%}
+            <ul class="m-subnav">
+              {%- for child in link.links -%}
+                <li><a href="{{ child.url }}" class="m-subnav-link">{{ child.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </nav>
+  <div class="mobile-drawer__foot">
+    {%- if section.settings.show_search -%}<button type="button" class="m-util-link" data-search-open data-menu-close>{%- render 'icon', name: 'search' -%} Search</button>{%- endif -%}
+    {%- if section.settings.show_account -%}<a href="{{ routes.account_url }}" class="m-util-link">{%- render 'icon', name: 'account' -%} Account</a>{%- endif -%}
+  </div>
+</aside>
+
+<script>
+(function(){
+  var header = document.querySelector('[data-header]');
+  if(!header) return;
+
+  // ---- Scrolled state (transparent -> solid) ----
+  function onScroll(){
+    if(window.scrollY > 40){ header.classList.add('is-scrolled'); }
+    else { header.classList.remove('is-scrolled'); }
+  }
+  if(window.__omorraHeaderScroll){ window.removeEventListener('scroll', window.__omorraHeaderScroll); }
+  window.__omorraHeaderScroll = onScroll;
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // ---- Mobile drawer ----
+  var drawer = document.getElementById('mobile-drawer');
+  var overlay = document.getElementById('mobile-overlay');
+  var openBtn = header.querySelector('[data-menu-open]');
+  var closeEls = document.querySelectorAll('[data-menu-close]');
+  var lastFocus = null;
+
+  function focusables(){ return drawer.querySelectorAll('a[href],button:not([disabled])'); }
+  function onKey(e){
+    if(e.key === 'Escape'){ closeMenu(); return; }
+    if(e.key === 'Tab'){
+      var f = focusables(); if(!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  }
+  function openMenu(){
+    lastFocus = document.activeElement;
+    drawer.classList.add('open'); overlay.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    if(openBtn){ openBtn.setAttribute('aria-expanded','true'); }
+    var f = focusables(); if(f.length){ f[0].focus(); }
+    document.addEventListener('keydown', onKey);
+  }
+  function closeMenu(){
+    drawer.classList.remove('open'); overlay.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    if(openBtn){ openBtn.setAttribute('aria-expanded','false'); }
+    document.removeEventListener('keydown', onKey);
+    if(lastFocus){ lastFocus.focus(); }
+  }
+  if(openBtn){ openBtn.addEventListener('click', openMenu); }
+  closeEls.forEach(function(el){ el.addEventListener('click', closeMenu); });
+
+  // ---- Drawer submenu expand ----
+  drawer.querySelectorAll('[data-submenu-toggle]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var li = btn.closest('.m-nav-item');
+      var open = li.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Main menu", "default": "main-menu" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image (optional, falls back to store name)" },
+    { "type": "header", "content": "Behaviour" },
+    { "type": "checkbox", "id": "sticky", "label": "Sticky header", "default": true },
+    { "type": "checkbox", "id": "enable_transparent", "label": "Transparent over homepage hero", "default": true },
+    { "type": "header", "content": "Icons" },
+    { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
+    { "type": "checkbox", "id": "show_account", "label": "Show account", "default": true }
+  ]
+}
+{% endschema %}

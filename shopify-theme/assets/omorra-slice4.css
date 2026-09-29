@@ -1,0 +1,37 @@
+/* ============================================================
+   OMORRA — Slice 4 (Featured Product split)
+   ============================================================ */
+
+.featured-prod{background:var(--fp-bg,var(--canvas-deep));overflow:hidden;}
+.featured-prod__grid{display:grid;grid-template-columns:1fr;}
+@media (min-width:900px){
+  .featured-prod__grid{align-items:center;}
+  .featured-prod--left .featured-prod__grid{grid-template-columns:42% 58%;}
+  .featured-prod--left .featured-prod__content{order:-1;}
+  .featured-prod--right .featured-prod__grid{grid-template-columns:58% 42%;}
+  .featured-prod--right .featured-prod__media{order:-1;}
+}
+
+.featured-prod__media{position:relative;background:var(--silk);}
+.featured-prod__media img{width:100%;height:100%;object-fit:cover;display:block;}
+@media (max-width:899px){
+  .featured-prod__media{order:-1;aspect-ratio:4/3;}
+}
+@media (min-width:900px){
+  .featured-prod__media{min-height:78vh;}
+}
+
+.featured-prod__content{padding:3.5rem 1.5rem;}
+@media (min-width:900px){
+  .featured-prod--left .featured-prod__content{padding:5rem 3rem 5rem clamp(1.5rem,6vw,6rem);}
+  .featured-prod--right .featured-prod__content{padding:5rem clamp(1.5rem,6vw,6rem) 5rem 3rem;}
+}
+.featured-prod__title{margin-top:1.25rem;font-size:clamp(2.2rem,3.4vw,3.4rem);line-height:1.05;font-weight:500;color:var(--ink);}
+.featured-prod__badge{margin-top:1rem;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--pecan);}
+.featured-prod__badge--out{color:var(--walnut);}
+.featured-prod__detail{margin-top:1.5rem;max-width:38ch;font-size:1rem;line-height:1.7;color:var(--walnut);}
+.featured-prod__price{margin-top:1.25rem;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;color:var(--ink);}
+.featured-prod__actions{margin-top:2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;}
+.featured-prod__cta{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:3px;transition:color 0.2s,border-color 0.2s;}
+.featured-prod__cta:hover{color:var(--pecan);border-color:var(--pecan);}
+.featured-prod__add{padding:0.85rem 1.75rem;font-size:0.74rem;}

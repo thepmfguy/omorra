@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "our-story",
+      "blocks": {
+        "p1": { "type": "para", "settings": { "text": "<p>Most Indians inherit the Gita without ever reading it. We grow up near Ayurveda without being taught it. We learn yoga as posture without the philosophy that gave the posture meaning. One of the world's greatest wisdom traditions sits, in most of our lives, slightly out of reach: present but not practiced, respected but not lived.</p>" } },
+        "h1": { "type": "heading", "settings": { "text": "I built Omorra to close that gap." } },
+        "p2": { "type": "para", "settings": { "text": "<p>Not with a retreat. Not with a course. Not with another book on the shelf. But through the small rituals that quietly become part of everyday life: a card read in the morning, a few mindful minutes on the mat, a nourishing ritual before sleep. Because wisdom does not change us when it is admired. It changes us when it is practiced.</p>" } },
+        "h2": { "type": "heading", "settings": { "text": "At Omorra, we believe in three things that belong together." } },
+        "p3": { "type": "para", "settings": { "text": "<p><em>Wisdom</em> that invites reflection and helps us understand ourselves more deeply. <em>Practice</em> that turns insight into daily rituals and makes wisdom come alive. <em>Nourishment</em> that cares for the body with the same intention we bring to the mind. When these three move together, life feels more aligned, more grounded, and more ourselves.</p>" } },
+        "tc": { "type": "twocol", "settings": { "heading": "What we believe", "left": "<p>We live in a world that often teaches us to care for the outside while overlooking the inside. But the way we live eventually reveals itself.</p><ul><li>In the calmness of our mind.</li><li>In the strength of our body.</li><li>In the way we move through the world.</li><li>And yes, even in the way we care for our skin.</li></ul>", "right": "<p>No cream can replace rest. No serum can replace peace. No ritual is complete without caring for both our inner and outer selves.</p><p>Lasting wellbeing isn't created by a single product. It is shaped by the small rituals we return to every day.</p>" } },
+        "cl": { "type": "closing", "settings": { "text": "<p>Omorra is not here to add more to your life. It is here to help you return to what truly matters.</p>", "accent": "A return to yourself.", "welcome": "Welcome to Omorra." } }
+      },
+      "block_order": ["p1", "h1", "p2", "h2", "p3", "tc", "cl"],
+      "settings": {
+        "eyebrow": "Our story",
+        "heading": "The Omorra Way",
+        "intro": "<p>India has never been short of wisdom. What many of us have been short of is a simple way to bring that wisdom into everyday life.</p>",
+        "image": "shopify://shop_images/our-story-banner.png",
+        "image_alt": "A woman writing in a journal by a sunlit window"
+      }
+    }
+  },
+  "order": ["main"]
+}

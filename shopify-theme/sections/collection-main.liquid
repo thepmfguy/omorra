@@ -1,0 +1,150 @@
+{%- liquid
+  assign has_filters = false
+  if collection.filters.size > 0
+    assign has_filters = true
+  endif
+-%}
+<div class="coll">
+  <header class="coll-header">
+    <p class="eyebrow">Collection</p>
+    <h1 class="coll-title font-display">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="coll-desc">{{ collection.description }}</div>
+    {%- endif -%}
+  </header>
+
+  <div class="coll-toolbar">
+    <span class="coll-count">{{ collection.products_count }} {{ collection.products_count | pluralize: 'piece', 'pieces' }}</span>
+    <div class="coll-toolbar-actions">
+      {%- if has_filters -%}
+        <button type="button" class="coll-filter-toggle" data-filter-open aria-controls="coll-filters" aria-expanded="false">Filter{% if collection.current_type or collection.current_vendor %}{% endif %}</button>
+      {%- endif -%}
+      {%- if collection.sort_options.size > 0 -%}
+        <form class="coll-sort" method="get">
+          {%- for f in collection.filters -%}
+            {%- for v in f.active_values -%}<input type="hidden" name="{{ v.param_name }}" value="{{ v.value | escape }}">{%- endfor -%}
+            {%- if f.type == 'price_range' -%}
+              {%- if f.min_value.value -%}<input type="hidden" name="{{ f.min_value.param_name }}" value="{{ f.min_value.value }}">{%- endif -%}
+              {%- if f.max_value.value -%}<input type="hidden" name="{{ f.max_value.param_name }}" value="{{ f.max_value.value }}">{%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <label for="coll-sort" class="sr-only">Sort by</label>
+          <select id="coll-sort" name="sort_by" onchange="this.form.submit()">
+            {%- for opt in collection.sort_options -%}
+              <option value="{{ opt.value }}"{% if opt.value == collection.sort_by %} selected{% endif %}>{{ opt.name }}</option>
+            {%- endfor -%}
+          </select>
+        </form>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Active filter chips {%- endcomment -%}
+  {%- if has_filters -%}
+    {%- assign active_count = 0 -%}
+    {%- for f in collection.filters -%}{%- assign active_count = active_count | plus: f.active_values.size -%}{%- endfor -%}
+    {%- if active_count > 0 -%}
+      <div class="coll-chips">
+        {%- for f in collection.filters -%}
+          {%- for v in f.active_values -%}
+            <a class="coll-chip" href="{{ v.url_to_remove }}">{{ v.label }} <span aria-hidden="true">×</span></a>
+          {%- endfor -%}
+        {%- endfor -%}
+        <a class="coll-chip-clear" href="{{ collection.url }}?sort_by={{ collection.sort_by }}">Clear all</a>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+
+  <div class="coll-layout{% unless has_filters %} coll-layout--nofilters{% endunless %}">
+    {%- if has_filters -%}
+      <div class="coll-filters-overlay" data-filter-close></div>
+      <aside class="coll-filters" id="coll-filters" data-filters>
+        <div class="coll-filters-head">
+          <span>Filter</span>
+          <button type="button" class="coll-filters-close" data-filter-close aria-label="Close filters">{%- render 'icon', name: 'close' -%}</button>
+        </div>
+        <form method="get">
+          <input type="hidden" name="sort_by" value="{{ collection.sort_by }}">
+          {%- for filter in collection.filters -%}
+            <fieldset class="coll-fieldset">
+              <legend class="coll-legend">{{ filter.label }}</legend>
+              {%- case filter.type -%}
+                {%- when 'price_range' -%}
+                  <div class="coll-price">
+                    <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}" placeholder="Min" min="0" max="{{ filter.range_max | money_without_currency | round }}">
+                    <span>to</span>
+                    <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}" placeholder="Max" min="0" max="{{ filter.range_max | money_without_currency | round }}">
+                  </div>
+                {%- else -%}
+                  <ul class="coll-values">
+                    {%- for value in filter.values -%}
+                      <li>
+                        <label class="coll-value{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
+                          <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value | escape }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                          <span>{{ value.label }}</span>
+                          <span class="coll-value-count">{{ value.count }}</span>
+                        </label>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+              {%- endcase -%}
+            </fieldset>
+          {%- endfor -%}
+          <div class="coll-filters-actions">
+            <button type="submit" class="btn-primary">Apply</button>
+            <a href="{{ collection.url }}" class="coll-clear">Clear</a>
+          </div>
+        </form>
+      </aside>
+    {%- endif -%}
+
+    <div class="coll-main">
+      {%- paginate collection.products by 12 -%}
+        {%- if collection.products.size == 0 -%}
+          <div class="coll-empty">
+            <p class="font-display">Nothing here yet.</p>
+            <p>No pieces match these filters.</p>
+            <a href="{{ collection.url }}" class="coll-clear">Clear filters</a>
+          </div>
+        {%- else -%}
+          <div class="coll-grid">
+            {%- for product in collection.products -%}
+              {%- render 'product-card', product: product, quick_add: section.settings.quick_add -%}
+            {%- endfor -%}
+          </div>
+          {%- if paginate.pages > 1 -%}
+            <nav class="coll-pagination" aria-label="Pagination">
+              {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="coll-page-arrow">← Previous</a>{%- endif -%}
+              <span class="coll-page-info">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+              {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="coll-page-arrow">Next →</a>{%- endif -%}
+            </nav>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+  </div>
+</div>
+
+{%- if has_filters -%}
+<script>
+(function(){
+  var panel=document.getElementById('coll-filters');
+  if(!panel) return;
+  var openBtn=document.querySelector('[data-filter-open]');
+  var closeEls=document.querySelectorAll('[data-filter-close]');
+  function open(){ panel.classList.add('is-open'); document.body.classList.add('coll-filters-lock'); if(openBtn) openBtn.setAttribute('aria-expanded','true'); }
+  function close(){ panel.classList.remove('is-open'); document.body.classList.remove('coll-filters-lock'); if(openBtn) openBtn.setAttribute('aria-expanded','false'); }
+  if(openBtn) openBtn.addEventListener('click', open);
+  closeEls.forEach(function(el){ el.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Collection Main",
+  "settings": [
+    { "type": "checkbox", "id": "quick_add", "label": "Enable Quick Add on cards", "default": true }
+  ]
+}
+{% endschema %}
