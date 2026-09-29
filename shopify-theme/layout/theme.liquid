@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf5ec">
+  <title>
+    {%- if request.page_type == 'index' -%}
+      {{ shop.name }} — Indian Wisdom for the Everyday
+    {%- elsif page_title == blank -%}
+      {{ shop.name }}
+    {%- else -%}
+      {{ page_title }} — {{ shop.name }}
+    {%- endif -%}
+  </title>
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- elsif request.page_type == 'index' -%}
+    <meta name="description" content="Omorra brings India's wisdom traditions into daily life through small daily objects, on three pillars: Wisdom, Practice and Nourish.">
+  {%- endif -%}
+  {%- if request.page_type == 'index' -%}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ shop.name | escape }}">
+    <meta property="og:title" content="{{ shop.name | escape }} — Indian Wisdom for the Everyday">
+    <meta property="og:description" content="Omorra brings India's wisdom traditions into daily life through small daily objects, on three pillars: Wisdom, Practice and Nourish.">
+    <meta property="og:url" content="{{ canonical_url }}">
+    {%- if page_image -%}<meta property="og:image" content="{{ page_image | image_url: width: 1200 }}">{%- endif -%}
+    <meta name="twitter:card" content="summary_large_image">
+  {%- endif -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  {{ content_for_header }}
+  {{ 'omorra.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice1.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice2.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice3.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice4.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice5.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice6.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice7.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice8.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice9.css' | asset_url | stylesheet_tag }}
+  {{ 'omorra-slice10.css' | asset_url | stylesheet_tag }}
+  {%- render 'structured-data' -%}
+</head>
+<body class="template-{{ request.page_type }}">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  {%- section 'announcement-bar' -%}
+  {%- section 'header' -%}
+  <main id="main-content" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+  {%- section 'footer' -%}
+
+  <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping bag">
+    <div class="cart-header">
+      <h2>Your bag (<span id="cart-count">0</span>)</h2>
+      <button class="cart-close" onclick="closeCart()" aria-label="Close bag">Close</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">
+        <p class="font-display" style="font-size:1.5rem;font-weight:500;">Your bag is empty.</p>
+        <p style="margin-top:0.75rem;color:var(--walnut);">Begin with one object, and the practice will follow.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn-primary" style="margin-top:2rem;display:inline-block;padding:0.75rem 2rem;">Browse the collection →</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total-row">
+        <span class="cart-total-label">Subtotal</span>
+        <span class="cart-total-value" id="cart-total">{{ cart.total_price | money }}</span>
+      </div>
+      <p style="font-size:0.74rem;color:var(--walnut);margin-top:0.5rem;">Shipping and taxes calculated at checkout.</p>
+      <a href="{{ routes.cart_url }}/checkout" class="btn-primary">Proceed to checkout →</a>
+    </div>
+  </div>
+
+  {%- render 'search-overlay' -%}
+
+  <script>
+    var OMORRA_LOCALE = {{ request.locale.iso_code | json }};
+    function omorraMoney(cents, currency){
+      try { return new Intl.NumberFormat(OMORRA_LOCALE, {style:'currency', currency:currency}).format(cents/100); }
+      catch(e){ return (cents/100).toFixed(2); }
+    }
+    function openCart(){document.getElementById('cart-drawer').classList.add('open');document.getElementById('cart-overlay').classList.add('open');document.body.style.overflow='hidden';fetchCart();}
+    function closeCart(){document.getElementById('cart-drawer').classList.remove('open');document.getElementById('cart-overlay').classList.remove('open');document.body.style.overflow='';}
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeCart();});
+    function syncCartCount(count){
+      document.querySelectorAll('[data-cart-count]').forEach(function(el){ el.textContent=count; if(count>0){el.removeAttribute('hidden');}else{el.setAttribute('hidden','');} });
+      var legacy=document.getElementById('cart-count'); if(legacy){legacy.textContent=count;}
+    }
+    function fetchCart(){
+      fetch('{{ routes.cart_url }}.js').then(function(r){return r.json();}).then(function(cart){
+        var cur=cart.currency||'{{ shop.currency }}';
+        syncCartCount(cart.item_count);
+        var items=document.getElementById('cart-items');var footer=document.getElementById('cart-footer');
+        if(cart.items.length===0){
+          items.innerHTML='<div class="cart-empty"><p class="font-display" style="font-size:1.5rem;font-weight:500;">Your bag is empty.</p><p style="margin-top:0.75rem;color:var(--walnut);">Begin with one object, and the practice will follow.</p><a href="{{ routes.all_products_collection_url }}" class="btn-primary" style="margin-top:2rem;display:inline-block;padding:0.75rem 2rem;" onclick="closeCart()">Browse the collection →</a></div>';
+          footer.style.display='none';
+        } else {
+          items.innerHTML=cart.items.map(function(i){return '<div class="cart-item"><img class="cart-item-img" src="'+i.image+'" alt="'+i.title+'"><div class="cart-item-info"><div style="display:flex;justify-content:space-between;"><a href="'+i.url+'" class="cart-item-name">'+i.product_title+'</a><span class="cart-item-price">'+omorraMoney(i.final_price,cur)+'</span></div><p style="font-size:0.8rem;color:var(--walnut);">'+(i.variant_title||'')+'</p><div style="display:flex;justify-content:space-between;margin-top:0.5rem;"><span>Qty '+i.quantity+'</span><a href="{{ routes.cart_change_url }}?id='+i.key+'&quantity=0" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--walnut);text-decoration:none;">Remove</a></div></div></div>';}).join('');
+          document.getElementById('cart-total').textContent=omorraMoney(cart.total_price,cur);
+          footer.style.display='block';
+        }
+      });
+    }
+    function addToCart(vid,q){
+      fetch('{{ routes.cart_add_url }}.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:vid,quantity:q||1})}).then(function(){fetchCart();openCart();});
+    }
+    document.addEventListener('DOMContentLoaded',function(){fetch('{{ routes.cart_url }}.js').then(function(r){return r.json();}).then(function(c){syncCartCount(c.item_count);});});
+  </script>
+</body>
+</html>

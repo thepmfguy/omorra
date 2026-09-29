@@ -1,0 +1,10 @@
+{%- comment -%} Usage: {% render 'pdp-accordion', id: 'detail', label: 'Detail', body: text, open: true %} {%- endcomment -%}
+<div class="pdp-acc">
+  <button type="button" class="pdp-acc-head" data-acc-head aria-expanded="{% if open %}true{% else %}false{% endif %}" aria-controls="pdp-acc-{{ id }}">
+    <span>{{ label }}</span>
+    <span class="pdp-acc-icon" aria-hidden="true"></span>
+  </button>
+  <div class="pdp-acc-body" id="pdp-acc-{{ id }}"{% unless open %} hidden{% endunless %}>
+    <div class="pdp-acc-inner">{{ body }}</div>
+  </div>
+</div>

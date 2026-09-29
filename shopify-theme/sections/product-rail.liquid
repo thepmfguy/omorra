@@ -1,0 +1,47 @@
+{%- assign coll = section.settings.collection -%}
+<section class="rail-section" id="{{ section.settings.anchor_id }}">
+  <div class="rail-header">
+    <div class="pillar-name-row">
+      <span class="pillar-line {{ section.settings.accent }}"></span>
+      <span class="pillar-name {{ section.settings.accent }}">{{ section.settings.title | default: 'Products' }}</span>
+    </div>
+    <p class="featured-header-blurb">{{ section.settings.blurb }}</p>
+  </div>
+  {%- if coll and coll.products_count > 0 -%}
+    <div class="rail-scroll" role="region" aria-label="{{ section.settings.title | default: 'Products' }} rail" tabindex="0">
+      {%- for product in coll.products -%}
+        <article class="rail-card">
+          <div class="rail-card-img">
+            {%- if product.featured_image -%}
+              <img src="{{ product.featured_image | image_url: width: 560 }}" alt="{{ product.title | escape }}" width="280" height="350" loading="lazy">
+            {%- endif -%}
+            <span class="rail-card-badge">{{ product.type | default: section.settings.title }}</span>
+          </div>
+          <div class="rail-card-info">
+            <div class="rail-card-name-row">
+              <a href="{{ product.url }}" class="rail-card-name">{{ product.title }}</a>
+              <span class="rail-card-price">{{ product.price | money }}</span>
+            </div>
+            <p class="rail-card-tag">{{ product.description | strip_html | truncate: 60 }}</p>
+          </div>
+          <a href="{{ product.url }}" class="rail-card-link sr-only">View {{ product.title }}</a>
+        </article>
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <p style="color:var(--walnut);text-align:center;padding:3rem 0;">Select a collection in the theme editor.</p>
+  {%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "Product Rail",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor id" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Nourish" },
+    { "type": "select", "id": "accent", "label": "Accent", "options": [{"value":"sienna","label":"Sienna"},{"value":"sage","label":"Sage"},{"value":"rosette","label":"Rosette"}], "default": "rosette" },
+    { "type": "text", "id": "blurb", "label": "Blurb", "default": "Something for the skin." }
+  ],
+  "presets": [{ "name": "Product Rail" }]
+}
+{% endschema %}

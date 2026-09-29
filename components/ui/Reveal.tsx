@@ -1,6 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -10,18 +7,12 @@ type RevealProps = {
   className?: string;
 };
 
-// Slow fade-and-rise on scroll. The house motion: calm, never bouncy.
-export function Reveal({ children, delay = 0, y = 24, className }: RevealProps) {
-  const reduce = useReducedMotion();
-  return (
-    <motion.div
-      className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-      transition={{ duration: 1.1, delay, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+/**
+ * Previously a scroll-triggered fade-and-rise. Now a plain wrapper — content
+ * always renders visible. Aesop/Frama/Loewe don't hide content behind scroll
+ * animations, and the previous approach was leaving elements at opacity 0 when
+ * users scrolled fast. Kept as a component so imports don't need to change.
+ */
+export function Reveal({ children, className }: RevealProps) {
+  return <div className={className}>{children}</div>;
 }

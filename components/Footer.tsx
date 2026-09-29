@@ -59,7 +59,7 @@ export function Footer() {
                   <li key={l.label}>
                     <a
                       href={l.href}
-                      className="text-[0.9rem] text-ink/70 transition-colors hover:text-ink"
+                      className="text-[0.9rem] text-ink transition-colors hover:text-pecan focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sienna"
                     >
                       {l.label}
                     </a>
@@ -70,12 +70,12 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-ink/10 pt-8 text-[0.74rem] text-ink/45 md:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-ink/10 pt-8 text-[0.74rem] text-walnut md:flex-row">
           <p>© {new Date().getFullYear()} Omorra. All rights reserved.</p>
           <div className="flex gap-7">
-            <a href="#" className="transition-colors hover:text-ink">Privacy</a>
-            <a href="#" className="transition-colors hover:text-ink">Terms</a>
-            <a href="#" className="transition-colors hover:text-ink">Accessibility</a>
+            <a href="#" className="transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sienna">Privacy</a>
+            <a href="#" className="transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sienna">Terms</a>
+            <a href="#" className="transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sienna">Accessibility</a>
           </div>
         </div>
       </div>

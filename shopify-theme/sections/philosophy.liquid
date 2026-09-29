@@ -1,0 +1,18 @@
+<section class="philosophy">
+  <div class="philosophy-inner">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2>{{ section.settings.heading | replace: '__em_start__', '<em>' | replace: '__em_end__', '</em>' }}</h2>
+    <p class="philosophy-body">{{ section.settings.body }}</p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Philosophy",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Omorra" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "The modern Indian morning is not short of ambition. __em_start__It is short of pause.__em_end__" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Between the phone at 7 and the first meeting at 10, between the commute and the inbox, there is almost no structured moment in which a person sits with themselves. The Gita has a word for that moment. The Upanishads have a method for it. Ayurveda has a practice for it. These are not ancient secrets. They are instructions we stopped following." }
+  ],
+  "presets": [{ "name": "Philosophy" }]
+}
+{% endschema %}

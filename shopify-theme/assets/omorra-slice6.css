@@ -1,0 +1,52 @@
+/* ============================================================
+   OMORRA — Slice 6 (Newsletter + Footer)
+   ============================================================ */
+
+/* Newsletter */
+.newsletter2{background:var(--canvas);padding:5rem 0;border-top:1px solid rgba(61,36,24,0.1);}
+@media (min-width:768px){.newsletter2{padding:6.5rem 0;}}
+.newsletter2-inner{max-width:560px;margin:0 auto;text-align:center;}
+.newsletter2-inner .eyebrow{display:block;}
+.newsletter2-heading{margin-top:1rem;font-size:clamp(1.8rem,2.6vw,2.4rem);font-weight:500;color:var(--ink);}
+.newsletter2-body{margin-top:1rem;font-size:1rem;line-height:1.6;color:var(--walnut);}
+.newsletter2-form{margin-top:2rem;}
+.newsletter2-field{display:flex;gap:0.6rem;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+.newsletter2-input{flex:1;min-width:200px;background:var(--canvas);border:1px solid rgba(61,36,24,0.25);padding:0.85rem 1rem;font-family:inherit;font-size:0.95rem;color:var(--ink);border-radius:2px;transition:border-color 0.2s;}
+.newsletter2-input::placeholder{color:var(--walnut);}
+.newsletter2-input:focus-visible{outline:none;border-color:var(--pecan);}
+.newsletter2-btn{background:var(--pecan);color:var(--canvas);border:none;border-radius:2px;padding:0.85rem 1.75rem;font-family:inherit;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.16em;cursor:pointer;transition:background 0.25s;white-space:nowrap;}
+.newsletter2-btn:hover{background:var(--ink);}
+.newsletter2-btn[disabled]{opacity:0.6;cursor:default;}
+.newsletter2-status{min-height:1.25rem;margin-top:1rem;}
+.newsletter2-success{font-size:0.9rem;color:var(--sage);}
+.newsletter2-error{font-size:0.9rem;color:var(--pecan);}
+
+/* Footer */
+.site-footer2{background:var(--canvas);border-top:1px solid rgba(61,36,24,0.1);padding:3rem 0 1.5rem;}
+.footer2-row{display:flex;flex-direction:column;gap:2rem;align-items:center;text-align:center;}
+@media (min-width:900px){
+  .footer2-row{flex-direction:row;justify-content:space-between;align-items:center;text-align:left;gap:2rem;}
+}
+.footer2-brand{display:flex;flex-direction:column;gap:0.5rem;}
+.footer2-wordmark{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.4rem;letter-spacing:0.3em;color:var(--ink);text-decoration:none;line-height:1;padding-left:0.3em;}
+.footer2-logo{max-height:28px;width:auto;}
+.footer2-tag{font-size:0.85rem;color:var(--walnut);}
+
+.footer2-nav{display:flex;flex-wrap:wrap;gap:1.25rem 1.75rem;justify-content:center;}
+.footer2-nav a{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink);text-decoration:none;transition:color 0.2s;position:relative;}
+.footer2-nav a::after{content:"";position:absolute;left:0;bottom:-3px;height:1px;width:100%;background:var(--pecan);transform:scaleX(0);transform-origin:left;transition:transform 0.2s;}
+.footer2-nav a:hover{color:var(--pecan);}
+.footer2-nav a:hover::after{transform:scaleX(1);}
+
+.footer2-meta{display:flex;align-items:center;gap:1.25rem;}
+.footer2-social{display:inline-flex;color:var(--ink);transition:color 0.2s;}
+.footer2-social:hover{color:var(--pecan);}
+.footer2-country{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--walnut);}
+.footer2-loc select{background:transparent;border:1px solid rgba(61,36,24,0.2);border-radius:2px;padding:0.4rem 0.6rem;font-family:inherit;font-size:0.72rem;color:var(--ink);cursor:pointer;}
+
+.footer2-bottom{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(61,36,24,0.08);text-align:center;}
+.footer2-bottom p{font-size:0.72rem;letter-spacing:0.04em;color:var(--walnut);}
+
+@media (prefers-reduced-motion:reduce){
+  .newsletter2-input,.newsletter2-btn,.footer2-nav a,.footer2-nav a::after,.footer2-social{transition:none;}
+}

@@ -1,0 +1,79 @@
+{%- liquid
+  assign img = section.settings.image
+  assign hero_alt = section.settings.image_alt | default: section.settings.heading
+-%}
+<div class="ostory">
+  <section class="ostory-hero">
+    <div class="ostory-hero__text">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow ostory-hero__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h1 class="ostory-hero__title font-display" style="font-weight:500;">{{ section.settings.heading }}</h1>{%- endif -%}
+      <span class="ostory-hero__rule" aria-hidden="true"></span>
+      {%- if section.settings.intro != blank -%}<div class="ostory-hero__intro">{{ section.settings.intro }}</div>{%- endif -%}
+    </div>
+    <div class="ostory-hero__media">
+      {%- if img != blank -%}
+        {{ img | image_url: width: 1600 | image_tag:
+          alt: hero_alt,
+          widths: '600,900,1200,1600',
+          sizes: '(min-width:900px) 52vw, 100vw',
+          loading: 'eager',
+          class: 'ostory-hero__img' }}
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="ostory-body">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            <h2 class="ostory-sub font-display" style="font-weight:500;" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+          {%- when 'twocol' -%}
+            <div class="ostory-twocol" {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}<h2 class="ostory-sub font-display ostory-twocol__head" style="font-weight:500;">{{ block.settings.heading }}</h2>{%- endif -%}
+              <div class="ostory-twocol__grid">
+                <div class="ostory-twocol__col rte">{{ block.settings.left }}</div>
+                <div class="ostory-twocol__col rte">{{ block.settings.right }}</div>
+              </div>
+            </div>
+          {%- when 'closing' -%}
+            <div class="ostory-closing" {{ block.shopify_attributes }}>
+              <div class="ostory-closing__lead rte">{{ block.settings.text }}</div>
+              {%- if block.settings.accent != blank -%}<p class="ostory-closing__accent font-display">{{ block.settings.accent }}</p>{%- endif -%}
+              {%- if block.settings.welcome != blank -%}<p class="ostory-closing__welcome font-display" style="font-weight:500;">{{ block.settings.welcome }}</p>{%- endif -%}
+            </div>
+          {%- else -%}
+            <div class="ostory-para rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Our Story",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our story" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Omorra Way" },
+    { "type": "richtext", "id": "intro", "label": "Intro" },
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "image_alt", "label": "Hero image alt text" }
+  ],
+  "blocks": [
+    { "type": "para", "name": "Paragraph", "settings": [ { "type": "richtext", "id": "text", "label": "Text" } ] },
+    { "type": "heading", "name": "Section heading (accent)", "settings": [ { "type": "text", "id": "text", "label": "Heading" } ] },
+    { "type": "twocol", "name": "Two columns", "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "left", "label": "Left column" },
+        { "type": "richtext", "id": "right", "label": "Right column" }
+    ] },
+    { "type": "closing", "name": "Closing", "settings": [
+        { "type": "richtext", "id": "text", "label": "Lead text" },
+        { "type": "text", "id": "accent", "label": "Accent line (italic)" },
+        { "type": "text", "id": "welcome", "label": "Welcome line" }
+    ] }
+  ],
+  "presets": [{ "name": "Our Story" }]
+}
+{% endschema %}

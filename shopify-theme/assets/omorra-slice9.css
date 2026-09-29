@@ -1,0 +1,40 @@
+/* ============================================================
+   OMORRA — Slice 9 (Predictive search overlay)
+   ============================================================ */
+
+.search-overlay{position:fixed;inset:0;z-index:200;visibility:hidden;pointer-events:none;}
+.search-overlay.is-open{visibility:visible;pointer-events:auto;}
+.search-overlay__scrim{position:absolute;inset:0;background:rgba(61,36,24,0.35);opacity:0;transition:opacity 0.3s;}
+.search-overlay.is-open .search-overlay__scrim{opacity:1;}
+.search-overlay__panel{position:absolute;top:0;left:0;right:0;background:var(--canvas);transform:translateY(-100%);transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 40px -24px rgba(61,36,24,0.4);}
+.search-overlay.is-open .search-overlay__panel{transform:translateY(0);}
+
+.search-overlay__form{display:flex;align-items:center;gap:1rem;max-width:900px;margin:0 auto;width:100%;padding:1.5rem 1.5rem;border-bottom:1px solid rgba(61,36,24,0.12);}
+@media (min-width:768px){.search-overlay__form{padding:2rem 2.5rem;}}
+.search-overlay__icon{display:inline-flex;color:var(--walnut);}
+.search-overlay__input{flex:1;background:none;border:none;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--ink);outline:none;}
+.search-overlay__input::placeholder{color:var(--silk);}
+.search-overlay__close{background:none;border:none;font-family:inherit;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--walnut);cursor:pointer;white-space:nowrap;}
+.search-overlay__close:hover{color:var(--ink);}
+
+.search-overlay__results{max-width:900px;margin:0 auto;width:100%;padding:1rem 1.5rem 2rem;overflow-y:auto;}
+@media (min-width:768px){.search-overlay__results{padding:1.25rem 2.5rem 2.5rem;}}
+.search-overlay__results.is-loading{opacity:0.5;}
+
+.sr-group{margin-bottom:1.5rem;}
+.sr-group-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--walnut);margin-bottom:0.75rem;}
+.sr-item{display:block;padding:0.6rem 0.5rem;color:var(--ink);text-decoration:none;font-size:0.95rem;border-radius:2px;transition:background 0.15s;}
+.sr-item:hover,.sr-item.is-active{background:var(--canvas-deep);}
+.sr-item--product{display:flex;align-items:center;gap:1rem;}
+.sr-thumb{width:48px;height:60px;flex-shrink:0;background:var(--petal-light);border-radius:2px;overflow:hidden;}
+.sr-thumb img{width:100%;height:100%;object-fit:cover;}
+.sr-item-body{display:flex;flex-direction:column;gap:0.15rem;min-width:0;}
+.sr-item-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;color:var(--ink);}
+.sr-item-price{font-size:0.8rem;color:var(--walnut);}
+.sr-empty{padding:1.5rem 0.5rem;color:var(--walnut);font-size:0.95rem;}
+.sr-viewall{display:inline-block;margin-top:0.5rem;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px;}
+.sr-viewall:hover{color:var(--pecan);border-color:var(--pecan);}
+
+@media (prefers-reduced-motion:reduce){
+  .search-overlay__scrim,.search-overlay__panel,.sr-item{transition:none;}
+}

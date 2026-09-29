@@ -1,0 +1,31 @@
+/* ============================================================
+   OMORRA — Slice 3 (The World of Omorra)
+   ============================================================ */
+
+.world-section{padding:4.5rem 0;}
+@media (min-width:768px){.world-section{padding:6.5rem 0;}}
+
+.world-intro{text-align:center;max-width:640px;margin:0 auto 3rem;}
+@media (min-width:768px){.world-intro{margin-bottom:4rem;}}
+.world-intro .eyebrow{display:block;}
+.world-heading{margin-top:1rem;font-size:clamp(2rem,3.4vw,3rem);line-height:1.12;font-weight:500;color:var(--ink);}
+.world-sub{margin-top:1.25rem;font-size:1rem;line-height:1.65;color:var(--walnut);}
+
+.world-grid{display:grid;grid-template-columns:1fr;gap:2.5rem;}
+@media (min-width:640px){.world-grid{grid-template-columns:repeat(2,1fr);gap:2rem;}}
+@media (min-width:900px){.world-grid{grid-template-columns:repeat(3,1fr);gap:2rem;}}
+
+.world-card{display:flex;flex-direction:column;}
+.world-card__media{display:block;aspect-ratio:4/3;overflow:hidden;background:var(--silk);border-radius:2px;}
+.world-card__media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(0.16,1,0.3,1);}
+.world-card__media:hover img,.world-card__media:focus-visible img{transform:scale(1.04);}
+.world-card__body{padding-top:1.5rem;}
+.world-card__label{font-size:1.4rem;font-weight:500;color:var(--ink);letter-spacing:0.01em;}
+.world-card__lead{margin-top:0.6rem;font-size:0.98rem;color:var(--ink);}
+.world-card__text{margin-top:0.5rem;font-size:0.92rem;line-height:1.6;color:var(--walnut);max-width:34ch;}
+.world-card__cta{display:inline-block;margin-top:1.25rem;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px;transition:color 0.2s,border-color 0.2s;}
+.world-card__cta:hover{color:var(--pecan);border-color:var(--pecan);}
+
+@media (prefers-reduced-motion:reduce){
+  .world-card__media img{transition:none;}
+}

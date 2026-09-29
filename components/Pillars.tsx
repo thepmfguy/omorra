@@ -16,17 +16,21 @@ const accentBg: Record<string, string> = {
 
 export function Pillars() {
   return (
-    <section id="pillars" className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-36">
-      <Reveal className="mb-16 max-w-[60ch] md:mb-24">
-        <p className="eyebrow mb-6">The three pillars</p>
-        <h2
-          className="font-display text-[2.2rem] leading-[1.1] text-ink md:text-[3.2rem]"
-          style={{ fontWeight: 500 }}
-        >
-          Inner life is not a single thing. It is a mind that needs something to
-          read, a body that needs something to do, and a surface that tells the
-          truth about both.
-        </h2>
+    <section id="pillars" className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-24">
+      <Reveal className="mb-12 md:mb-16">
+        <div className="grid grid-cols-1 items-end gap-6 md:grid-cols-12 md:gap-10">
+          <div className="md:col-span-4">
+            <p className="eyebrow">The three pillars</p>
+          </div>
+          <h2
+            className="font-display text-[1.7rem] leading-[1.2] text-ink md:col-span-8 md:text-[2rem]"
+            style={{ fontWeight: 400 }}
+          >
+            Inner life is not a single thing. It is a mind that needs something
+            to read, a body that needs something to do, and a surface that tells
+            the truth about both.
+          </h2>
+        </div>
       </Reveal>
 
       <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-3">
@@ -41,7 +45,7 @@ export function Pillars() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover transition-transform duration-[1300ms] ease-out group-hover:scale-[1.05]"
                 />
-                <span className="absolute left-4 top-4 text-[0.62rem] uppercase tracking-[0.2em] text-canvas/90 mix-blend-difference">
+                <span className="absolute left-4 top-4 rounded-full bg-canvas/70 px-2.5 py-1 text-[0.62rem] uppercase tracking-[0.2em] text-ink backdrop-blur-sm">
                   {`0${i + 1}`}
                 </span>
               </div>

@@ -1,0 +1,56 @@
+{%- comment -%} Usage: {% render 'product-card', product: product, quick_add: true %} {%- endcomment -%}
+{%- liquid
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+  assign coming_soon = false
+  if product.tags contains 'coming-soon'
+    assign coming_soon = true
+  endif
+-%}
+<article class="pc{% if coming_soon %} pc--soon{% endif %}">
+  <a href="{{ product.url }}" class="pc-media" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_image -%}
+      <img class="pc-img pc-img--primary"
+           src="{{ product.featured_image | image_url: width: 600 }}"
+           srcset="{{ product.featured_image | image_url: width: 300 }} 300w, {{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 900 }} 900w"
+           sizes="(min-width:900px) 25vw, 50vw"
+           alt="{{ product.featured_image.alt | default: product.title | escape }}"
+           width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" loading="lazy">
+      {%- if product.images[1] -%}
+        <img class="pc-img pc-img--alt" src="{{ product.images[1] | image_url: width: 600 }}" alt="" width="300" height="375" loading="lazy" aria-hidden="true">
+      {%- endif -%}
+    {%- endif -%}
+    {%- if coming_soon -%}
+      <span class="pc-badge pc-badge--soon">Coming Soon</span>
+    {%- elsif product.available == false -%}
+      <span class="pc-badge pc-badge--out">Sold out</span>
+    {%- elsif on_sale -%}
+      <span class="pc-badge pc-badge--sale">Save {{ product.compare_at_price | minus: product.price | money }}</span>
+    {%- endif -%}
+  </a>
+  <div class="pc-info">
+    <div class="pc-row">
+      <a href="{{ product.url }}" class="pc-name">{{ product.title }}</a>
+      {%- unless coming_soon -%}
+        <span class="pc-price">
+          {{ product.price | money }}{%- if on_sale -%} <s class="pc-compare">{{ product.compare_at_price | money }}</s>{%- endif -%}
+        </span>
+      {%- endunless -%}
+    </div>
+    {%- if quick_add -%}
+      {%- if coming_soon -%}
+        <span class="pc-add pc-add--out" aria-disabled="true">Coming Soon</span>
+      {%- elsif product.available -%}
+        {%- if product.has_only_default_variant -%}
+          <button type="button" class="pc-add" onclick="addToCart({{ product.selected_or_first_available_variant.id }},1)">Quick add</button>
+        {%- else -%}
+          <a href="{{ product.url }}" class="pc-add">Choose options</a>
+        {%- endif -%}
+      {%- else -%}
+        <span class="pc-add pc-add--out" aria-disabled="true">Sold out</span>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</article>

@@ -5,14 +5,23 @@ import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
-  title: "Our Story — Omorra",
+  title: "Our Story",
   description:
     "Why Omorra exists: to close the gap between India's wisdom traditions and the texture of ordinary days, through small daily objects.",
+  alternates: { canonical: "/our-story" },
+  openGraph: {
+    title: "Our Story — Omorra",
+    description:
+      "Why Omorra exists: to close the gap between India's wisdom traditions and the texture of ordinary days.",
+    url: "/our-story",
+    type: "article",
+    images: [{ url: "/images/story.png", alt: "Morning light through an open doorway" }],
+  },
 };
 
 function P({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[1.08rem] leading-[1.85] text-ink/85">{children}</p>
+    <p className="text-[1.08rem] leading-[1.85] text-ink">{children}</p>
   );
 }
 

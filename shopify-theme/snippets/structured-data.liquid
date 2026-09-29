@@ -1,0 +1,46 @@
+{%- comment -%} JSON-LD structured data. Uses only dynamic Shopify objects. {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | append: '/' | json }}
+}
+</script>
+{%- if request.page_type == 'index' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | append: '/' | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": { "@type": "EntryPoint", "urlTemplate": "{{ shop.url }}{{ routes.search_url }}?q={search_term_string}" },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{%- endif -%}
+{%- if request.page_type == 'product' -%}
+  {%- assign sd_variant = product.selected_or_first_available_variant -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncate: 300 | json }},
+  {%- if product.featured_image -%}"image": {{ product.featured_image | image_url: width: 1200 | json }},{%- endif -%}
+  "brand": { "@type": "Brand", "name": {{ product.vendor | default: shop.name | json }} },
+  {%- if sd_variant.sku != blank -%}"sku": {{ sd_variant.sku | json }},{%- endif -%}
+  "url": {{ shop.url | append: product.url | json }},
+  "offers": {
+    "@type": "Offer",
+    "price": {{ sd_variant.price | divided_by: 100.0 | json }},
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "availability": "https://schema.org/{% if sd_variant.available %}InStock{% else %}OutOfStock{% endif %}",
+    "url": {{ shop.url | append: product.url | json }}
+  }
+}
+</script>
+{%- endif -%}

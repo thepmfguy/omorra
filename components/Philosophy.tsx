@@ -3,7 +3,7 @@ import { Reveal } from "./ui/Reveal";
 export function Philosophy() {
   return (
     <section className="border-y border-ink/10 bg-canvas-deep">
-      <div className="mx-auto max-w-[900px] px-6 py-28 text-center md:py-40">
+      <div className="mx-auto max-w-[900px] px-6 py-20 text-center md:py-28">
         <Reveal>
           <p className="eyebrow mb-8">Why Omorra</p>
           <h2

@@ -1,0 +1,59 @@
+<section id="ritual-kit" class="ritual-section">
+  <div class="container">
+    <div class="ritual-grid">
+      <div class="ritual-image">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 900 }}" alt="Ritual Kit" width="600" height="450" loading="lazy">
+        {%- else -%}
+          <img src="{{ 'ritual-kit-her.png' | asset_url }}" alt="Ritual Kit" width="600" height="450" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="ritual-text">
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="ritual-title">{{ section.settings.heading }}</h2>
+        <p class="ritual-body">{{ section.settings.body }}</p>
+        <div class="ritual-kits">
+          {%- assign kits = collections['ritual-kits'] -%}
+          {%- if kits.products.size > 0 -%}
+            {%- for product in kits.products limit: 2 -%}
+              <a href="{{ product.url }}" class="ritual-kit-link">
+                <div>
+                  <div class="ritual-kit-name">{{ product.title }}</div>
+                  <div class="ritual-kit-detail">4 pieces · the complete ritual</div>
+                </div>
+                <span class="ritual-kit-price">{{ product.price | money }}</span>
+              </a>
+            {%- endfor -%}
+          {%- else -%}
+            <a href="/collections/ritual-kits" class="ritual-kit-link">
+              <div>
+                <div class="ritual-kit-name">Ritual Kit · For Her</div>
+                <div class="ritual-kit-detail">4 pieces · the complete ritual</div>
+              </div>
+              <span class="ritual-kit-price">Shop →</span>
+            </a>
+            <a href="/collections/ritual-kits" class="ritual-kit-link">
+              <div>
+                <div class="ritual-kit-name">Ritual Kit · For Him</div>
+                <div class="ritual-kit-detail">4 pieces · the complete ritual</div>
+              </div>
+              <span class="ritual-kit-price">Shop →</span>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Ritual Kits",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (falls back to bundled)" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The complete ritual" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The whole ritual, in one box." },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "A verse to read, a mist to begin, and the cleanse-and-nourish that closes the day. The four objects that hold the practice together, hand-wrapped and offered at a saving. Chosen for her, or for him." }
+  ],
+  "presets": [{ "name": "Ritual Kits" }]
+}
+{% endschema %}

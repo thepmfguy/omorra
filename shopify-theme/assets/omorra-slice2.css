@@ -1,0 +1,58 @@
+/* ============================================================
+   OMORRA — Slice 2 (Full-bleed editorial hero)
+   ============================================================ */
+
+.hero-full{position:relative;width:100%;min-height:var(--hero-h,78vh);display:flex;overflow:hidden;background:var(--canvas-deep);}
+.hero-full__media{position:absolute;inset:0;z-index:0;}
+.hero-full__img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.hero-full__img--m{display:none;}
+
+/* Scrim: light wash on the text side to guarantee legibility over any image */
+.hero-full__scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg, rgba(250,245,236,var(--hero-overlay,0.15)) 0%, rgba(250,245,236,calc(var(--hero-overlay,0.15) * 0.5)) 38%, rgba(250,245,236,0) 68%);}
+.hero-pos--right .hero-full__scrim{background:linear-gradient(270deg, rgba(250,245,236,var(--hero-overlay,0.15)) 0%, rgba(250,245,236,calc(var(--hero-overlay,0.15) * 0.5)) 38%, rgba(250,245,236,0) 68%);}
+.hero-pos--center .hero-full__scrim{background:radial-gradient(ellipse at center, rgba(250,245,236,var(--hero-overlay,0.15)) 0%, rgba(250,245,236,0) 70%);}
+
+.hero-full__inner{position:relative;z-index:2;width:100%;display:flex;align-items:center;padding-top:var(--header-h,76px);}
+.hero-pos--left .hero-full__inner{justify-content:flex-start;}
+.hero-pos--center .hero-full__inner{justify-content:center;}
+.hero-pos--right .hero-full__inner{justify-content:flex-end;}
+
+.hero-full__content{max-width:34rem;color:var(--hero-text,#3d2418);}
+.hero-align--center .hero-full__content{text-align:center;}
+.hero-align--center.hero-pos--center .hero-full__content{margin:0 auto;}
+
+.hero-full__eyebrow{margin-bottom:1.5rem;color:currentColor;opacity:0.75;}
+.hero-full__heading{font-size:clamp(2.6rem,5vw,4.6rem);line-height:1.04;font-weight:500;letter-spacing:-0.01em;color:currentColor;}
+.hero-full__body{margin-top:1.75rem;max-width:40ch;font-size:1.02rem;line-height:1.7;color:currentColor;opacity:0.82;}
+.hero-align--center .hero-full__body{margin-left:auto;margin-right:auto;}
+.hero-full__body p + p{margin-top:0.75rem;}
+
+.hero-full__ctas{margin-top:2.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:2rem;}
+.hero-align--center .hero-full__ctas{justify-content:center;}
+.hero-cta{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.18em;color:currentColor;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px;transition:opacity 0.25s;}
+.hero-cta:hover{opacity:0.6;}
+.hero-cta--ghost{border-bottom-color:transparent;opacity:0.7;}
+.hero-cta--ghost:hover{opacity:1;border-bottom-color:currentColor;}
+
+/* Entrance animation */
+.hero-animate .hero-full__content > *{opacity:0;transform:translateY(16px);animation:heroIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards;}
+.hero-animate .hero-full__eyebrow{animation-delay:0.05s;}
+.hero-animate .hero-full__heading{animation-delay:0.14s;}
+.hero-animate .hero-full__body{animation-delay:0.26s;}
+.hero-animate .hero-full__ctas{animation-delay:0.38s;}
+@keyframes heroIn{to{opacity:1;transform:translateY(0);}}
+
+@media (max-width:767px){
+  .hero-full{min-height:var(--hero-h-m,82vh);}
+  .hero-full__img--d{display:none;}
+  .hero-full__img--m{display:block;}
+  .hero-full__content{max-width:100%;}
+  .hero-full__body{max-width:100%;}
+  .hero-pos--right .hero-full__inner{justify-content:flex-start;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hero-animate .hero-full__content > *{opacity:1;transform:none;animation:none;}
+  .hero-cta{transition:none;}
+}
