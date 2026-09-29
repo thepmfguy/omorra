@@ -40,7 +40,7 @@
         <div class="featured-prod__actions">
           <a href="{{ product.url }}" class="featured-prod__cta">{{ section.settings.cta_label | default: 'Discover' }}</a>
           {%- if section.settings.quick_add and product.available -%}
-            <button type="button" class="btn-primary featured-prod__add" onclick="addToCart({{ product.selected_or_first_available_variant.id }},1)">Add to bag — {{ product.price | money }}</button>
+            <button type="button" class="btn-primary featured-prod__add" onclick="addToCart({{ product.selected_or_first_available_variant.id }},1)">Add to bag · {{ product.price | money }}</button>
           {%- endif -%}
         </div>
       {%- else -%}

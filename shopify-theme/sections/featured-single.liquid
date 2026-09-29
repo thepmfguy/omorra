@@ -27,7 +27,7 @@
           <h3 class="featured-name">{{ product.title }}</h3>
           <p class="featured-desc">{{ product.description | strip_html | truncate: 240 }}</p>
           <div class="featured-actions">
-            <a href="{{ product.url }}" class="featured-btn">Add to bag — {{ product.price | money }}</a>
+            <a href="{{ product.url }}" class="featured-btn">Add to bag · {{ product.price | money }}</a>
             <a href="{{ product.url }}" class="featured-view">View details →</a>
           </div>
         </div>
